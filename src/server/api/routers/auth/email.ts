@@ -17,12 +17,9 @@ export const emailRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      console.log(1);
       const individual = await collegeAgent.GET("/Individual/FindByEmail", {
         params: { query: { email: input.email } },
       });
-      console.log(1);
-      console.log(individual);
 
       if (!individual.data) {
         if (individual.response.status === 404) {
