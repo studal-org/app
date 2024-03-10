@@ -13,7 +13,7 @@ import { cache } from "react";
 
 import { appRouter, type AppRouter } from "@/server/api/root";
 import { createTRPCContext } from "@/server/api/trpc";
-import { transformer } from "./shared";
+import { loggerLinkEnabled, transformer } from "./shared";
 
 /**
  * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
@@ -32,9 +32,7 @@ export const api = createTRPCProxyClient<AppRouter>({
   transformer,
   links: [
     loggerLink({
-      enabled: (op) =>
-        process.env.NODE_ENV === "development" ||
-        (op.direction === "down" && op.result instanceof Error),
+      enabled: (op) => loggerLinkEnabled(op),
     }),
     /**
      * Custom RSC link that lets us invoke procedures without using http requests. Since Server

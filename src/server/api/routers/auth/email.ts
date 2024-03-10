@@ -1,12 +1,14 @@
 import MagicLinkEmail, { magicLinkEmailSubject } from "@/emails/magic-link";
 import { env } from "@/env";
+import { authenticate } from "@/server/auth/authenticate";
 import { db } from "@/server/db";
 import { authLinks, users } from "@/server/db/schema";
 import { collegeAgent } from "@/server/lib/agents/college";
 import { render } from "@react-email/components";
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { transport } from "../../email";
+import { transport } from "../../../email";
 import { createTRPCRouter, publicProcedure } from "../../trpc";
 
 export const emailRouter = createTRPCRouter({
@@ -59,5 +61,35 @@ export const emailRouter = createTRPCRouter({
           }),
         ),
       });
+    }),
+  callback: publicProcedure
+    .input(z.object({ authLinkId: z.string().uuid() }))
+    .mutation(async ({ input }) => {
+      const authLink = await db.query.authLinks.findFirst({
+        where: eq(authLinks.id, input.authLinkId),
+        columns: { isUsed: true, userId: true, validUntil: true },
+      });
+
+      if (!authLink)
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Could not find this link",
+        });
+      if (authLink.isUsed)
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "This link was already used",
+        });
+      if (new Date() > authLink.validUntil)
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "This link expired",
+        });
+      await db
+        .update(authLinks)
+        .set({ isUsed: true })
+        .where(eq(authLinks.id, input.authLinkId));
+
+      await authenticate(authLink.userId);
     }),
 });

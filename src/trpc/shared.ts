@@ -2,6 +2,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
 import { type AppRouter } from "@/server/api/root";
+import { type LoggerLinkOptions } from "@trpc/client";
 
 export const transformer = superjson;
 
@@ -14,6 +15,16 @@ function getBaseUrl() {
 export function getUrl() {
   return getBaseUrl() + "/api/trpc";
 }
+
+export const loggerLinkEnabled: NonNullable<
+  LoggerLinkOptions<AppRouter>["enabled"]
+> = (op) => {
+  console.log(op);
+  return (
+    process.env.NODE_ENV === "development" ||
+    (op.direction === "down" && op.result instanceof Error)
+  );
+};
 
 /**
  * Inference helper for inputs.

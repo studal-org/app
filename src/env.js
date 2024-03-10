@@ -25,6 +25,9 @@ export const env = createEnv({
     SMTP_USERNAME: z.string(),
     SMTP_PASSWORD: z.string(),
     SMTP_FROM: z.string().email(),
+    SESSION_SECRET: z.string().transform((v) => new TextEncoder().encode(v)),
+    SESSION_TTL: z.coerce.number(),
+    APP_INTERNAL_KEY: z.string(),
   },
 
   /**
@@ -52,6 +55,9 @@ export const env = createEnv({
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     SMTP_FROM: process.env.SMTP_FROM,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    SESSION_SECRET: process.env.SESSION_SECRET,
+    SESSION_TTL: process.env.SESSION_TTL,
+    APP_INTERNAL_KEY: process.env.APP_INTERNAL_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
