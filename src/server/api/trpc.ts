@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import { getSession } from "../auth/session";
+import { sessionTokenController } from "../auth/tokens";
 
 /**
  * 1. CONTEXT
@@ -28,6 +29,9 @@ import { getSession } from "../auth/session";
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getSession();
+  console.log({
+    createTRPCContext: { session, token: await sessionTokenController.get() },
+  });
   return {
     session,
     db,
@@ -55,6 +59,13 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     };
   },
 });
+
+/**
+ * Create a server-side caller.
+ *
+ * @see https://trpc.io/docs/server/server-side-calls
+ */
+export const createCallerFactory = t.createCallerFactory;
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)

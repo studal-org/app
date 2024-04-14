@@ -1,0 +1,10 @@
+type: object
+title: Administrator
+properties:
+  id:
+    type: string
+  individualId:
+    type: string
+required:
+  - id
+  - individualId

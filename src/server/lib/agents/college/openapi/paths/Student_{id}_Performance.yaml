@@ -1,0 +1,36 @@
+get:
+  summary: Read Student Performance by Student ID by Period
+  operationId: get-Student-id-Marks-ByPeriod
+  parameters:
+    - name: periodStart
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+    - name: periodEnd
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/StudentPerformance.yaml
+    "400":
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/ReferenceNotFound.yaml

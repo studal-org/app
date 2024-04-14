@@ -1,0 +1,25 @@
+get:
+  summary: Find ScheduleForDate by scheduleDate
+  description: ""
+  operationId: get-ScheduleForDate-FindByScheduleDate
+  parameters:
+    - name: scheduleDate
+      in: query
+      schema:
+        type: string
+        format: date
+  requestBody:
+    content: {}
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ScheduleForDate_ByScheduleDate.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/NotFound.yaml

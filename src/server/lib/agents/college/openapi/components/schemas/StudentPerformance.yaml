@@ -1,0 +1,53 @@
+type: object
+title: StudentPerformance
+properties:
+  objectType:
+    type: string
+    enum:
+      - statement
+      - retakeReferral
+      - stateCertificationBoardProtocol
+      - practiceReport
+      - incomingAcademicCertificate
+      - additionalClass
+      - class
+  objectId:
+    type: string
+    format: uuid
+  date:
+    type: string
+    format: date-time
+  discipline:
+    type: object
+    properties:
+      objectType:
+        type: string
+        enum:
+          - discipline
+          - practiceKind
+      objectId:
+        type: string
+        format: uuid
+    required:
+      - objectType
+      - objectId
+  workTypeId:
+    type: string
+    format: uuid
+  controlTypeId:
+    type: string
+    format: uuid
+  isLate:
+    type: boolean
+  isAttended:
+    type: boolean
+  marks:
+    type: array
+    items:
+      $ref: ./Mark.yaml
+required:
+  - objectType
+  - objectId
+  - date
+  - discipline
+  - marks

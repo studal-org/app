@@ -15,13 +15,18 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
   const [trpcClient] = useState(() =>
     api.createClient({
-      transformer,
       links: [
         loggerLink({
           enabled: (op) => loggerLinkEnabled(op),
         }),
         unstable_httpBatchStreamLink({
+          transformer,
           url: getUrl(),
+          // headers: () => {
+          //   const headers = new Headers();
+          //   headers.set("x-trpc-source", "nextjs-react");
+          //   return headers;
+          // },
         }),
       ],
     }),

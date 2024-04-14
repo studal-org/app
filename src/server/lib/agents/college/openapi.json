@@ -1,0 +1,963 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0",
+    "title": "Studal - 1C Agent",
+    "summary": ""
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1"
+    }
+  ],
+  "security": [
+    {
+      "Basic": []
+    }
+  ],
+  "paths": {
+    "/ScheduleForDate/{id}": {
+      "get": {
+        "summary": "Read ScheduleForDate by ID",
+        "operationId": "get-ScheduleForDate",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleForDate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ScheduleForDate/FindByScheduleDate": {
+      "get": {
+        "summary": "Find ScheduleForDate by scheduleDate",
+        "description": "",
+        "operationId": "get-ScheduleForDate-FindByScheduleDate",
+        "parameters": [
+          {
+            "name": "scheduleDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleForDate_ByScheduleDate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PeriodsSchedule/{id}": {
+      "get": {
+        "summary": "Read PeriodsSchedule by ID",
+        "operationId": "get-PeriodsSchedule",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PeriodsSchedule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Individual/{id}": {
+      "get": {
+        "summary": "Read Individual by ID",
+        "operationId": "get-Individual-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Individual"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Individual/FindByEmail": {
+      "get": {
+        "summary": "Find Individual by email",
+        "operationId": "get-Individual-FindByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Individual_ByEmail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Individual/{id}/Student": {
+      "get": {
+        "summary": "Read Student by Individual ID",
+        "operationId": "get-Individual-id-Student",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ReferenceNotFound"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NotFound"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Indivudial/{id}/Administrator": {
+      "get": {
+        "summary": "Read Administrator by Individual ID",
+        "operationId": "get-Indivudial-id-Administrator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Administrator"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ReferenceNotFound"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NotFound"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Student/{id}": {
+      "get": {
+        "summary": "Read Student by ID",
+        "operationId": "get-Student-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Student/{id}/Performance": {
+      "get": {
+        "summary": "Read Student Performance by Student ID by Period",
+        "operationId": "get-Student-id-Marks-ByPeriod",
+        "parameters": [
+          {
+            "name": "periodStart",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "periodEnd",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StudentPerformance"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Discipline/{id}": {
+      "get": {
+        "summary": "Read Discipline by ID",
+        "operationId": "get-Discipline-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discipline"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PracticeKind/{id}": {
+      "get": {
+        "summary": "Read Practice Kind by ID",
+        "operationId": "get-PracticeKind-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeKind"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ControlType/{id}": {
+      "get": {
+        "summary": "Read Control Type by ID",
+        "operationId": "get-Control-Type-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ControlType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WorkType/{id}": {
+      "get": {
+        "summary": "Read Work Type by ID",
+        "operationId": "get-Work-Type-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Basic": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "ScheduleForDate": {
+        "type": "object",
+        "title": "ScheduleForDate",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "periodScheduleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scheduleDate": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "ReferenceNotFound": {
+        "type": "object",
+        "title": "ReferenceNotFoundError",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "ReferenceNotFound"
+          },
+          "message": {
+            "type": "string"
+          },
+          "referenceType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "referenceType"
+        ]
+      },
+      "ScheduleForDate_ByScheduleDate": {
+        "type": "object",
+        "title": "ScheduleForDate_ByScheduleDate",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "periodScheduleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scheduleDate": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": [
+          "id",
+          "scheduleDate"
+        ]
+      },
+      "NotFound": {
+        "type": "object",
+        "title": "NotFoundError",
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "NotFound"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "PeriodsSchedule": {
+        "type": "object",
+        "title": "PeriodsSchedule",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "periodNumber": {
+                  "type": "integer"
+                },
+                "startTime": {
+                  "type": "string",
+                  "format": "time"
+                },
+                "endTime": {
+                  "type": "string",
+                  "format": "time"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Individual": {
+        "type": "object",
+        "title": "Individual",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "Individual_ByEmail": {
+        "type": "object",
+        "title": "Individual_ByEmail",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email"
+        ]
+      },
+      "Student": {
+        "type": "object",
+        "title": "Student",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "individualId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "individualId"
+        ]
+      },
+      "Administrator": {
+        "type": "object",
+        "title": "Administrator",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "individualId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "individualId"
+        ]
+      },
+      "Mark": {
+        "title": "Mark",
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "number"
+              },
+              "mark": {
+                "type": "number"
+              },
+              "controlTypeId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "number",
+              "mark",
+              "controlTypeId"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "number"
+              },
+              "isPassed": {
+                "type": "boolean"
+              },
+              "controlTypeId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "number",
+              "isPassed",
+              "controlTypeId"
+            ]
+          }
+        ]
+      },
+      "StudentPerformance": {
+        "type": "object",
+        "title": "StudentPerformance",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "statement",
+              "retakeReferral",
+              "stateCertificationBoardProtocol",
+              "practiceReport",
+              "incomingAcademicCertificate",
+              "additionalClass",
+              "class"
+            ]
+          },
+          "objectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "discipline": {
+            "type": "object",
+            "properties": {
+              "objectType": {
+                "type": "string",
+                "enum": [
+                  "discipline",
+                  "practiceKind"
+                ]
+              },
+              "objectId": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "objectType",
+              "objectId"
+            ]
+          },
+          "workTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "controlTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isLate": {
+            "type": "boolean"
+          },
+          "isAttended": {
+            "type": "boolean"
+          },
+          "marks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Mark"
+            }
+          }
+        },
+        "required": [
+          "objectType",
+          "objectId",
+          "date",
+          "discipline",
+          "marks"
+        ]
+      },
+      "Discipline": {
+        "type": "object",
+        "title": "Discipline",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "shortTitle": {
+            "type": "string"
+          },
+          "fullTitle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "shortTitle"
+        ]
+      },
+      "PracticeKind": {
+        "type": "object",
+        "title": "Practice Kind",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "practiceType": {
+            "enum": [
+              "educational",
+              "internship",
+              "undergraduate"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "shortTitle": {
+            "type": "string"
+          },
+          "fullTitle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "shortTitle"
+        ]
+      },
+      "ControlType": {
+        "type": "object",
+        "title": "ControlType",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "markTypeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "WorkType": {
+        "type": "object",
+        "title": "WorkType",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      }
+    }
+  }
+}

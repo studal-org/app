@@ -4,8 +4,8 @@ import { api } from "@/trpc/server";
 import UserMenuOnClient from "./client";
 
 const UserMenu: React.FC = async () => {
-  const user = await api.user.read.query();
-  const student = await api.user.student.read.query();
+  const user = await api.user.read();
+  const student = await api.user.student.read();
 
   return <UserMenuOnClient user={user} student={student} />;
 };

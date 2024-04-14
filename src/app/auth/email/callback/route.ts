@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
     redirect("/auth");
   }
   try {
-    await api.auth.email.callback.mutate({ authLinkId });
+    await api.auth.email.callback({ authLinkId });
   } catch (error) {
     if (error instanceof TRPCClientError && error.cause instanceof TRPCError)
       return new NextResponse(error.message, {

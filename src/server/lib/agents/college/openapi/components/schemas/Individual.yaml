@@ -1,0 +1,11 @@
+type: object
+title: Individual
+properties:
+  id:
+    type: string
+  fullName:
+    type: string
+  email:
+    type: string
+required:
+  - id

@@ -1,0 +1,12 @@
+type: object
+title: ControlType
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  markTypeId:
+    type: string
+required:
+  - id
+  - title

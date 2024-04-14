@@ -1,0 +1,24 @@
+type: object
+title: PeriodsSchedule
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+  schedule:
+    type: array
+    items:
+      type: object
+      properties:
+        periodNumber:
+          type: integer
+        startTime:
+          type: string
+          format: time
+        endTime:
+          type: string
+          format: time
+required:
+  - id
+  - name

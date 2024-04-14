@@ -3,19 +3,19 @@
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { api } from "@/trpc/react";
 import {
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogDescription,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { api } from "@/trpc/react";
+import { useState } from "react";
 
 const useLogout = () => {
   const [alertOpen, setAlertOpen] = useState(false);
@@ -36,10 +36,10 @@ const useLogout = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={logout.isLoading}>
+          <AlertDialogCancel disabled={logout.isPending}>
             Отменить
           </AlertDialogCancel>
-          <Button onClick={() => logout.mutate()} disabled={logout.isLoading}>
+          <Button onClick={() => logout.mutate()} disabled={logout.isPending}>
             Выйти
           </Button>
         </AlertDialogFooter>

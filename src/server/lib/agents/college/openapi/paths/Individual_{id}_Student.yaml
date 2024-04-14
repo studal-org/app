@@ -1,0 +1,24 @@
+get:
+  summary: Read Student by Individual ID
+  operationId: get-Individual-id-Student
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Student.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - $ref: ../components/schemas/errors/ReferenceNotFound.yaml
+              - $ref: ../components/schemas/errors/NotFound.yaml

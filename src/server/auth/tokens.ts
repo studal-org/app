@@ -50,7 +50,7 @@ export const sessionTokenController = {
   generateCookieOptions: (exp: Date) => ({
     expires: exp,
     httpOnly: true,
-    secure: true,
+    // secure: true,
   }),
   newToken({ sub, iat, nbf, exp, jti }: TokenPayload) {
     return new jose.SignJWT()

@@ -1,0 +1,14 @@
+apis:
+  college-agent@0.1.0:
+    root: ./src/server/lib/agents/college/openapi.yaml
+
+extends:
+  - minimal
+
+theme:
+  openapi:
+    generateCodeSamples:
+      languages:
+        - lang: curl
+        - lang: Node.js
+        - lang: Python

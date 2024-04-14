@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/ScheduleForDate/{id}": {
     /** Read ScheduleForDate by ID */
@@ -32,6 +33,30 @@ export interface paths {
     /** Read Administrator by Individual ID */
     get: operations["get-Indivudial-id-Administrator"];
   };
+  "/Student/{id}": {
+    /** Read Student by ID */
+    get: operations["get-Student-id"];
+  };
+  "/Student/{id}/Performance": {
+    /** Read Student Performance by Student ID by Period */
+    get: operations["get-Student-id-Marks-ByPeriod"];
+  };
+  "/Discipline/{id}": {
+    /** Read Discipline by ID */
+    get: operations["get-Discipline-id"];
+  };
+  "/PracticeKind/{id}": {
+    /** Read Practice Kind by ID */
+    get: operations["get-PracticeKind-id"];
+  };
+  "/ControlType/{id}": {
+    /** Read Control Type by ID */
+    get: operations["get-Control-Type-id"];
+  };
+  "/WorkType/{id}": {
+    /** Read Work Type by ID */
+    get: operations["get-Work-Type-id"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -47,6 +72,13 @@ export interface components {
       /** Format: date */
       scheduleDate?: string;
     };
+    /** ReferenceNotFoundError */
+    ReferenceNotFound: {
+      /** @constant */
+      code: "ReferenceNotFound";
+      message: string;
+      referenceType: string;
+    };
     /** ScheduleForDate_ByScheduleDate */
     ScheduleForDate_ByScheduleDate: {
       /** Format: uuid */
@@ -56,18 +88,24 @@ export interface components {
       /** Format: date */
       scheduleDate: string;
     };
+    /** NotFoundError */
+    NotFound: {
+      /** @constant */
+      code: "NotFound";
+      message: string;
+    };
     /** PeriodsSchedule */
     PeriodsSchedule: {
       /** Format: uuid */
       id: string;
       name: string;
       schedule?: {
-        periodNumber?: number;
-        /** Format: time */
-        startTime?: string;
-        /** Format: time */
-        endTime?: string;
-      }[];
+          periodNumber?: number;
+          /** Format: time */
+          startTime?: string;
+          /** Format: time */
+          endTime?: string;
+        }[];
     };
     /** Individual */
     Individual: {
@@ -91,6 +129,67 @@ export interface components {
       id: string;
       individualId: string;
     };
+    /** Mark */
+    Mark: {
+      number: number;
+      mark: number;
+      /** Format: uuid */
+      controlTypeId: string;
+    } | {
+      number: number;
+      isPassed: boolean;
+      /** Format: uuid */
+      controlTypeId: string;
+    };
+    /** StudentPerformance */
+    StudentPerformance: {
+      /** @enum {string} */
+      objectType: "statement" | "retakeReferral" | "stateCertificationBoardProtocol" | "practiceReport" | "incomingAcademicCertificate" | "additionalClass" | "class";
+      /** Format: uuid */
+      objectId: string;
+      /** Format: date-time */
+      date: string;
+      discipline: {
+        /** @enum {string} */
+        objectType: "discipline" | "practiceKind";
+        /** Format: uuid */
+        objectId: string;
+      };
+      /** Format: uuid */
+      workTypeId?: string;
+      /** Format: uuid */
+      controlTypeId?: string;
+      isLate?: boolean;
+      isAttended?: boolean;
+      marks: components["schemas"]["Mark"][];
+    };
+    /** Discipline */
+    Discipline: {
+      id: string;
+      title: string;
+      shortTitle: string;
+      fullTitle?: string;
+    };
+    /** Practice Kind */
+    PracticeKind: {
+      id: string;
+      /** @enum {unknown} */
+      practiceType?: "educational" | "internship" | "undergraduate";
+      title: string;
+      shortTitle: string;
+      fullTitle?: string;
+    };
+    /** ControlType */
+    ControlType: {
+      id: string;
+      title: string;
+      markTypeId?: string;
+    };
+    /** WorkType */
+    WorkType: {
+      id: string;
+      title: string;
+    };
   };
   responses: never;
   parameters: never;
@@ -104,6 +203,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /** Read ScheduleForDate by ID */
   "get-ScheduleForDate": {
     parameters: {
@@ -120,7 +220,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
       };
     };
   };
@@ -145,7 +247,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["NotFound"];
+        };
       };
     };
   };
@@ -165,7 +269,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
       };
     };
   };
@@ -185,7 +291,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
       };
     };
   };
@@ -205,7 +313,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["NotFound"];
+        };
       };
     };
   };
@@ -225,7 +335,9 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"] | components["schemas"]["NotFound"];
+        };
       };
     };
   };
@@ -245,7 +357,145 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"] | components["schemas"]["NotFound"];
+        };
+      };
+    };
+  };
+  /** Read Student by ID */
+  "get-Student-id": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Student"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
+      };
+    };
+  };
+  /** Read Student Performance by Student ID by Period */
+  "get-Student-id-Marks-ByPeriod": {
+    parameters: {
+      query: {
+        periodStart: string;
+        periodEnd: string;
+      };
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StudentPerformance"][];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
+      };
+    };
+  };
+  /** Read Discipline by ID */
+  "get-Discipline-id": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Discipline"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
+      };
+    };
+  };
+  /** Read Practice Kind by ID */
+  "get-PracticeKind-id": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PracticeKind"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
+      };
+    };
+  };
+  /** Read Control Type by ID */
+  "get-Control-Type-id": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ControlType"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
+      };
+    };
+  };
+  /** Read Work Type by ID */
+  "get-Work-Type-id": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["WorkType"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ReferenceNotFound"];
+        };
       };
     };
   };

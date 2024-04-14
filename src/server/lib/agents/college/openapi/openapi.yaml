@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  version: "1.0"
+  title: Studal - 1C Agent
+  summary: ""
+servers:
+  - url: http://127.0.0.1
+security:
+  - Basic: []
+paths:
+  /ScheduleForDate/{id}:
+    $ref: paths/ScheduleForDate_{id}.yaml
+  /ScheduleForDate/FindByScheduleDate:
+    $ref: paths/ScheduleForDate_FindByScheduleDate.yaml
+  /PeriodsSchedule/{id}:
+    $ref: paths/PeriodsSchedule_{id}.yaml
+  /Individual/{id}:
+    $ref: paths/Individual_{id}.yaml
+  /Individual/FindByEmail:
+    $ref: paths/Individual_FindByEmail.yaml
+  /Individual/{id}/Student:
+    $ref: paths/Individual_{id}_Student.yaml
+  /Indivudial/{id}/Administrator:
+    $ref: paths/Indivudial_{id}_Administrator.yaml
+  /Student/{id}:
+    $ref: paths/Student_{id}.yaml
+  /Student/{id}/Performance:
+    $ref: paths/Student_{id}_Performance.yaml
+  /Discipline/{id}:
+    $ref: paths/Discipline_{id}.yaml
+  /PracticeKind/{id}:
+    $ref: paths/PracticeKind_{id}.yaml
+  /ControlType/{id}:
+    $ref: paths/ControlType_{id}.yaml
+  /WorkType/{id}:
+    $ref: paths/WorkType_{id}.yaml
+
+components:
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

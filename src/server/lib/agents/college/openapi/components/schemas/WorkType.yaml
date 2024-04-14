@@ -1,0 +1,10 @@
+type: object
+title: WorkType
+properties:
+  id:
+    type: string
+  title:
+    type: string
+required:
+  - id
+  - title

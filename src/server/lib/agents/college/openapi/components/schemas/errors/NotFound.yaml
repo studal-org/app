@@ -1,0 +1,11 @@
+type: object
+title: NotFoundError
+properties:
+  code:
+    type: string
+    const: "NotFound"
+  message:
+    type: string
+required:
+  - code
+  - message

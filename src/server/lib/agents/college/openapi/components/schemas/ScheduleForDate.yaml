@@ -1,0 +1,14 @@
+type: object
+title: ScheduleForDate
+properties:
+  id:
+    type: string
+    format: uuid
+  periodScheduleId:
+    type: string
+    format: uuid
+  scheduleDate:
+    type: string
+    format: date
+required:
+  - id

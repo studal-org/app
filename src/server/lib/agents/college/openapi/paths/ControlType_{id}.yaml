@@ -1,0 +1,23 @@
+get:
+  summary: Read ControlType by ID
+  operationId: get-Control-Type-id
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ControlType.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/ReferenceNotFound.yaml

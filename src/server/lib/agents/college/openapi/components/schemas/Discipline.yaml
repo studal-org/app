@@ -1,0 +1,15 @@
+type: object
+title: Discipline
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  shortTitle:
+    type: string
+  fullTitle:
+    type: string
+required:
+  - id
+  - title
+  - shortTitle

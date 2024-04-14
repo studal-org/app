@@ -9,10 +9,10 @@ import UserMenu, { UserMenuLoading } from "./_components/user-menu";
 
 const StudentLayout: FC<{ children: ReactNode }> = async ({ children }) => {
   try {
-    await api.user.student.read.query();
+    await api.user.student.read();
     return (
-      <div className="h-full grid grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
-        <DashboardHeader className="border-b backdrop-blur-3xl">
+      <div className="min-h-full grid grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
+        <DashboardHeader className="border-b backdrop-blur-3xl bg-background/40">
           <StudentNavbar />
           <Suspense fallback={<UserMenuLoading />}>
             <UserMenu />

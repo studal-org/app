@@ -1,0 +1,24 @@
+get:
+  summary: Read Administrator by Individual ID
+  operationId: get-Indivudial-id-Administrator
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Administrator.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - $ref: ../components/schemas/errors/ReferenceNotFound.yaml
+              - $ref: ../components/schemas/errors/NotFound.yaml

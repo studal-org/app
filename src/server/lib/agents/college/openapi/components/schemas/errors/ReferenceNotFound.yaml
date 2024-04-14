@@ -1,0 +1,14 @@
+type: object
+title: ReferenceNotFoundError
+properties:
+  code:
+    type: string
+    const: "ReferenceNotFound"
+  message:
+    type: string
+  referenceType:
+    type: string
+required:
+  - code
+  - message
+  - referenceType

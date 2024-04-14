@@ -23,16 +23,16 @@ export const emailRouter = createTRPCRouter({
         params: { query: { email: input.email } },
       });
 
-      if (!individual.data) {
-        if (individual.response.status === 404) {
+      if (individual.error) {
+        if (individual.error.code === "NotFound")
           throw new TRPCError({
             message: "Individual with this email was not found.",
             code: "NOT_FOUND",
           });
-        }
         throw new TRPCError({
           message: "Something went wrong.",
           code: "INTERNAL_SERVER_ERROR",
+          cause: individual.error,
         });
       }
 

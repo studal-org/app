@@ -1,0 +1,20 @@
+type: object
+title: Practice Kind
+properties:
+  id:
+    type: string
+  practiceType:
+    enum:
+      - educational
+      - internship
+      - undergraduate
+  title:
+    type: string
+  shortTitle:
+    type: string
+  fullTitle:
+    type: string
+required:
+  - id
+  - title
+  - shortTitle

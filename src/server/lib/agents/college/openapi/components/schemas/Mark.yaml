@@ -1,0 +1,28 @@
+title: Mark
+anyOf:
+  - type: object
+    properties:
+      number:
+        type: number
+      mark:
+        type: number
+      controlTypeId:
+        type: string
+        format: uuid
+    required:
+      - number
+      - mark
+      - controlTypeId
+  - type: object
+    properties:
+      number:
+        type: number
+      isPassed:
+        type: boolean
+      controlTypeId:
+        type: string
+        format: uuid
+    required:
+      - number
+      - isPassed
+      - controlTypeId

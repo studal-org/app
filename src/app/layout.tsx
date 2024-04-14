@@ -3,9 +3,8 @@ import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
-import { TRPCReactProvider } from "@/trpc/react";
 
-import { Toaster } from "@/components/ui/sonner";
+import Providers from "./dashboard/_components/providers";
 
 export const fontSans = FontSans({
   subsets: ["latin", "cyrillic"],
@@ -24,17 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en">
       <body
         className={cn(
-          "bg-background text-foreground h-full font-sans antialiased",
+          "bg-background text-foreground min-h-screen h-screen font-sans antialiased",
           fontSans.variable,
         )}
       >
-        <TRPCReactProvider>
-          {children}
-          <Toaster />
-        </TRPCReactProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
