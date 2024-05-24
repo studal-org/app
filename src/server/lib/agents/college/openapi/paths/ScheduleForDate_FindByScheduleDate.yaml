@@ -1,13 +1,20 @@
 get:
-  summary: Find ScheduleForDate by scheduleDate
+  summary: Find ScheduleForDate by scheduleDate for groupId
   description: ""
-  operationId: get-ScheduleForDate-FindByScheduleDate
+  operationId: get-ScheduleForDate-FindByScheduleDate-ForGroupId
   parameters:
     - name: scheduleDate
       in: query
       schema:
         type: string
         format: date
+      required: true
+    - name: groupId
+      in: query
+      schema:
+        type: string
+        format: uuid
+      required: true
   requestBody:
     content: {}
   responses:
@@ -22,4 +29,6 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/errors/NotFound.yaml
+            anyOf:
+              - $ref: ../components/schemas/errors/ReferenceNotFound.yaml
+              - $ref: ../components/schemas/errors/NotFound.yaml

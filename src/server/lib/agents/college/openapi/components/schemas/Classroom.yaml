@@ -1,0 +1,13 @@
+type: object
+title: Classroom
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  number:
+    type: number
+required:
+  - id
+  - title
+  - number

@@ -37,6 +37,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
+    NEXT_PUBLIC_TZ: z.string(),
   },
 
   /**
@@ -54,10 +55,11 @@ export const env = createEnv({
     SMTP_USERNAME: process.env.SMTP_USERNAME,
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     SMTP_FROM: process.env.SMTP_FROM,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     SESSION_SECRET: process.env.SESSION_SECRET,
     SESSION_TTL: process.env.SESSION_TTL,
     APP_INTERNAL_KEY: process.env.APP_INTERNAL_KEY,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_TZ: process.env.NEXT_PUBLIC_TZ,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

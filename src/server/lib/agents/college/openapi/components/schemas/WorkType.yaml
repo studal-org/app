@@ -3,6 +3,7 @@ title: WorkType
 properties:
   id:
     type: string
+    format: uuid
   title:
     type: string
 required:

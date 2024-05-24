@@ -1,10 +1,15 @@
 get:
-  summary: Read ScheduleForDate by ID
-  operationId: get-ScheduleForDate
+  summary: Read ScheduleForDate by ID for groupId
+  operationId: get-ScheduleForDate-ForGroupId
   parameters:
     - name: id
       in: path
       required: true
+      schema:
+        type: string
+        format: uuid
+    - name: groupId
+      in: query
       schema:
         type: string
         format: uuid

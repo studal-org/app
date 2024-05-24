@@ -13,7 +13,6 @@ import { ZodError } from "zod";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import { getSession } from "../auth/session";
-import { sessionTokenController } from "../auth/tokens";
 
 /**
  * 1. CONTEXT
@@ -29,9 +28,6 @@ import { sessionTokenController } from "../auth/tokens";
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getSession();
-  console.log({
-    createTRPCContext: { session, token: await sessionTokenController.get() },
-  });
   return {
     session,
     db,

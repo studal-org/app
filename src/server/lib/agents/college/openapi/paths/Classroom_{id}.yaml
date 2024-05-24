@@ -1,0 +1,23 @@
+get:
+  summary: Read Classroom by ID
+  operationId: get-Classroom-id
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Classroom.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/ReferenceNotFound.yaml

@@ -1,0 +1,59 @@
+type: object
+title: Period
+properties:
+  number:
+    type: integer
+  groupId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+  subgroup:
+    anyOf:
+      - type: integer
+        minimum: 0
+      - type: "null"
+  periodNumber:
+    anyOf:
+      - type: integer
+      - type: "null"
+  discipline:
+    anyOf:
+      - type: object
+        properties:
+          objectType:
+            type: string
+            enum:
+              - discipline
+              - practiceKind
+          objectId:
+            type: string
+            format: uuid
+        required:
+          - objectType
+          - objectId
+      - type: "null"
+  teacherId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+  classroomId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+  workTypeId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+required:
+  - number
+  - groupId
+  - subgroup
+  - periodNumber
+  - discipline
+  - teacherId
+  - classroomId
+  - workTypeId

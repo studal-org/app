@@ -32,15 +32,23 @@ properties:
       - objectType
       - objectId
   workTypeId:
-    type: string
-    format: uuid
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
   controlTypeId:
-    type: string
-    format: uuid
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
   isLate:
-    type: boolean
+    anyOf:
+      - type: boolean
+      - type: "null"
   isAttended:
-    type: boolean
+    anyOf:
+      - type: boolean
+      - type: "null"
   marks:
     type: array
     items:
@@ -50,4 +58,8 @@ required:
   - objectId
   - date
   - discipline
+  - workTypeId
+  - controlTypeId
+  - isLate
+  - isAttended
   - marks

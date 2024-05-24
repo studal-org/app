@@ -4,12 +4,20 @@ properties:
   id:
     type: string
     format: uuid
-  periodScheduleId:
-    type: string
-    format: uuid
   scheduleDate:
     type: string
     format: date
+  periodScheduleId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+  schedule:
+    type: array
+    items:
+      $ref: ./Period_AsItem.yaml
 required:
   - id
   - scheduleDate
+  - periodScheduleId
+  - schedule

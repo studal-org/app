@@ -16,7 +16,7 @@ import { Fragment } from "react";
 import useGroups from "./groups";
 
 const UserMenuOnClient: React.FC<{
-  user: RouterOutputs["user"]["read"];
+  user: RouterOutputs["user"]["readSelf"];
   student: RouterOutputs["user"]["student"]["read"];
 }> = ({ user }) => {
   const { groups, components } = useGroups();
@@ -49,9 +49,6 @@ const UserMenuOnClient: React.FC<{
               <p className="text-sm font-medium leading-none">
                 {name ? `${name.firstName} ${name.lastName}` : user.email}
               </p>
-              {/* <p className="text-xs leading-none text-muted-foreground">
-                {group.name}
-              </p> */}
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

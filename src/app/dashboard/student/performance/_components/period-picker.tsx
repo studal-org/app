@@ -58,7 +58,7 @@ const PeriodPicker: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
                 format(pickedPeriod.from, "dd MMM yyyy")
               )
             ) : (
-              <span>Pick a date</span>
+              <span>Выберите период</span>
             )}
           </Button>
         </PopoverTrigger>

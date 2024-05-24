@@ -3,8 +3,12 @@ title: Administrator
 properties:
   id:
     type: string
+    format: uuid
   individualId:
-    type: string
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
 required:
   - id
   - individualId

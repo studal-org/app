@@ -14,6 +14,8 @@ paths:
     $ref: paths/ScheduleForDate_FindByScheduleDate.yaml
   /PeriodsSchedule/{id}:
     $ref: paths/PeriodsSchedule_{id}.yaml
+  /PeriodsSchedule/Default:
+    $ref: paths/PeriodsSchedule_Default.yaml
   /Individual/{id}:
     $ref: paths/Individual_{id}.yaml
   /Individual/FindByEmail:
@@ -34,7 +36,10 @@ paths:
     $ref: paths/ControlType_{id}.yaml
   /WorkType/{id}:
     $ref: paths/WorkType_{id}.yaml
-
+  /Classroom/{id}:
+    $ref: paths/Classroom_{id}.yaml
+  /Employee/{id}:
+    $ref: paths/Employee_{id}.yaml
 components:
   securitySchemes:
     Basic:

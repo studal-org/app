@@ -9,9 +9,7 @@ const DisciplineBase: FC<{ title: ReactNode }> = ({ title }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <div>{title}</div>
-        {/* <Button variant="link" className="text-base font-normal p-0 h-fit">
-        </Button> */}
+        <span className="cursor-pointer">{title}</span>
       </PopoverTrigger>
       <PopoverContent className="w-full lg:w-50">
         <div className="text-sm text-muted-foreground">Дисциплина</div>

@@ -2,10 +2,35 @@ type: object
 title: Individual
 properties:
   id:
-    type: string
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
   fullName:
-    type: string
+    anyOf:
+      - type: string
+      - type: "null"
   email:
-    type: string
+    anyOf:
+      - type: string
+      - type: "null"
+  name:
+    anyOf:
+      - type: object
+        properties:
+          first:
+            type: string
+          middle:
+            type: string
+          last:
+            type: string
+        required:
+          - first
+          - middle
+          - last
+      - type: "null"
 required:
   - id
+  - fullName
+  - email
+  - name

@@ -3,13 +3,17 @@ title: Discipline
 properties:
   id:
     type: string
+    format: uuid
   title:
     type: string
   shortTitle:
     type: string
   fullTitle:
-    type: string
+    anyOf:
+      - type: string
+      - type: "null"
 required:
   - id
   - title
   - shortTitle
+  - fullTitle

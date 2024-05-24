@@ -13,7 +13,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Student.yaml
+            $ref: ../components/schemas/Student_ByIndividual.yaml
     "404":
       description: Not Found
       content:

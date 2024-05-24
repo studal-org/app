@@ -18,13 +18,21 @@
   "paths": {
     "/ScheduleForDate/{id}": {
       "get": {
-        "summary": "Read ScheduleForDate by ID",
-        "operationId": "get-ScheduleForDate",
+        "summary": "Read ScheduleForDate by ID for groupId",
+        "operationId": "get-ScheduleForDate-ForGroupId",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -57,9 +65,9 @@
     },
     "/ScheduleForDate/FindByScheduleDate": {
       "get": {
-        "summary": "Find ScheduleForDate by scheduleDate",
+        "summary": "Find ScheduleForDate by scheduleDate for groupId",
         "description": "",
-        "operationId": "get-ScheduleForDate-FindByScheduleDate",
+        "operationId": "get-ScheduleForDate-FindByScheduleDate-ForGroupId",
         "parameters": [
           {
             "name": "scheduleDate",
@@ -67,7 +75,17 @@
             "schema": {
               "type": "string",
               "format": "date"
-            }
+            },
+            "required": true
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
           }
         ],
         "requestBody": {
@@ -89,7 +107,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotFound"
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ReferenceNotFound"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NotFound"
+                    }
+                  ]
                 }
               }
             }
@@ -129,6 +154,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PeriodsSchedule/Default": {
+      "get": {
+        "summary": "Read default PeriodsSchedule",
+        "operationId": "get-PeriodsSchedule-Default",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PeriodsSchedule"
                 }
               }
             }
@@ -234,7 +277,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Student"
+                  "$ref": "#/components/schemas/Student_ByIndividual"
                 }
               }
             }
@@ -279,7 +322,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Administrator"
+                  "$ref": "#/components/schemas/Administrator_ByIndividual"
                 }
               }
             }
@@ -442,7 +485,7 @@
     },
     "/PracticeKind/{id}": {
       "get": {
-        "summary": "Read Practice Kind by ID",
+        "summary": "Read PracticeKind by ID",
         "operationId": "get-PracticeKind-id",
         "parameters": [
           {
@@ -481,7 +524,7 @@
     },
     "/ControlType/{id}": {
       "get": {
-        "summary": "Read Control Type by ID",
+        "summary": "Read ControlType by ID",
         "operationId": "get-Control-Type-id",
         "parameters": [
           {
@@ -520,7 +563,7 @@
     },
     "/WorkType/{id}": {
       "get": {
-        "summary": "Read Work Type by ID",
+        "summary": "Read WorkType by ID",
         "operationId": "get-Work-Type-id",
         "parameters": [
           {
@@ -556,6 +599,83 @@
           }
         }
       }
+    },
+    "/Classroom/{id}": {
+      "get": {
+        "summary": "Read Classroom by ID",
+        "operationId": "get-Classroom-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Classroom"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Employee/{id}": {
+      "get": {
+        "summary": "Read Employee by ID",
+        "operationId": "get-Employee-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -566,6 +686,117 @@
       }
     },
     "schemas": {
+      "Period_AsItem": {
+        "type": "object",
+        "title": "Period",
+        "properties": {
+          "number": {
+            "type": "integer"
+          },
+          "groupId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "subgroup": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "periodNumber": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "discipline": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "objectType": {
+                    "type": "string",
+                    "enum": [
+                      "discipline",
+                      "practiceKind"
+                    ]
+                  },
+                  "objectId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "objectType",
+                  "objectId"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "teacherId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "classroomId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workTypeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "number",
+          "groupId",
+          "subgroup",
+          "periodNumber",
+          "discipline",
+          "teacherId",
+          "classroomId",
+          "workTypeId"
+        ]
+      },
       "ScheduleForDate": {
         "type": "object",
         "title": "ScheduleForDate",
@@ -574,17 +805,40 @@
             "type": "string",
             "format": "uuid"
           },
-          "periodScheduleId": {
-            "type": "string",
-            "format": "uuid"
-          },
           "scheduleDate": {
-            "type": "string",
-            "format": "date"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "periodScheduleId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Period_AsItem"
+            }
           }
         },
         "required": [
-          "id"
+          "id",
+          "scheduleDate",
+          "periodScheduleId",
+          "schedule"
         ]
       },
       "ReferenceNotFound": {
@@ -616,18 +870,33 @@
             "type": "string",
             "format": "uuid"
           },
-          "periodScheduleId": {
-            "type": "string",
-            "format": "uuid"
-          },
           "scheduleDate": {
             "type": "string",
             "format": "date"
+          },
+          "periodScheduleId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Period_AsItem"
+            }
           }
         },
         "required": [
           "id",
-          "scheduleDate"
+          "scheduleDate",
+          "periodScheduleId",
+          "schedule"
         ]
       },
       "NotFound": {
@@ -664,23 +933,50 @@
               "type": "object",
               "properties": {
                 "periodNumber": {
-                  "type": "integer"
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 },
                 "startTime": {
-                  "type": "string",
-                  "format": "time"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "time"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 },
                 "endTime": {
-                  "type": "string",
-                  "format": "time"
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "format": "time"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
-              }
+              },
+              "required": [
+                "periodNumber",
+                "startTime",
+                "endTime"
+              ]
             }
           }
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "schedule"
         ]
       },
       "Individual": {
@@ -688,17 +984,68 @@
         "title": "Individual",
         "properties": {
           "id": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "fullName": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "email": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "first": {
+                    "type": "string"
+                  },
+                  "middle": {
+                    "type": "string"
+                  },
+                  "last": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first",
+                  "middle",
+                  "last"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
-          "id"
+          "id",
+          "fullName",
+          "email",
+          "name"
         ]
       },
       "Individual_ByEmail": {
@@ -706,18 +1053,102 @@
         "title": "Individual_ByEmail",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "fullName": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "email": {
             "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "first": {
+                    "type": "string"
+                  },
+                  "middle": {
+                    "type": "string"
+                  },
+                  "last": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first",
+                  "middle",
+                  "last"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "id",
-          "email"
+          "fullName",
+          "email",
+          "name"
+        ]
+      },
+      "Student_ByIndividual": {
+        "type": "object",
+        "title": "Student",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "individualId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "groupId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "individualId",
+          "groupId"
+        ]
+      },
+      "Administrator_ByIndividual": {
+        "type": "object",
+        "title": "Administrator",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "individualId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "id",
+          "individualId"
         ]
       },
       "Student": {
@@ -725,31 +1156,36 @@
         "title": "Student",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "individualId": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "groupId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "id",
-          "individualId"
-        ]
-      },
-      "Administrator": {
-        "type": "object",
-        "title": "Administrator",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "individualId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "individualId"
+          "individualId",
+          "groupId"
         ]
       },
       "Mark": {
@@ -842,18 +1278,46 @@
             ]
           },
           "workTypeId": {
-            "type": "string",
-            "format": "uuid"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "controlTypeId": {
-            "type": "string",
-            "format": "uuid"
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "isLate": {
-            "type": "boolean"
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "isAttended": {
-            "type": "boolean"
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "marks": {
             "type": "array",
@@ -867,6 +1331,10 @@
           "objectId",
           "date",
           "discipline",
+          "workTypeId",
+          "controlTypeId",
+          "isLate",
+          "isAttended",
           "marks"
         ]
       },
@@ -875,7 +1343,8 @@
         "title": "Discipline",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "title": {
             "type": "string"
@@ -884,13 +1353,21 @@
             "type": "string"
           },
           "fullTitle": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "id",
           "title",
-          "shortTitle"
+          "shortTitle",
+          "fullTitle"
         ]
       },
       "PracticeKind": {
@@ -898,13 +1375,21 @@
         "title": "Practice Kind",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "practiceType": {
-            "enum": [
-              "educational",
-              "internship",
-              "undergraduate"
+            "anyOf": [
+              {
+                "enum": [
+                  "educational",
+                  "internship",
+                  "undergraduate"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ]
           },
           "title": {
@@ -914,13 +1399,22 @@
             "type": "string"
           },
           "fullTitle": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
           "id",
+          "practiceType",
           "title",
-          "shortTitle"
+          "shortTitle",
+          "fullTitle"
         ]
       },
       "ControlType": {
@@ -928,12 +1422,39 @@
         "title": "ControlType",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "title": {
             "type": "string"
           },
           "markTypeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "markTypeId"
+        ]
+      },
+      "WorkType": {
+        "type": "object",
+        "title": "WorkType",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
             "type": "string"
           }
         },
@@ -942,20 +1463,49 @@
           "title"
         ]
       },
-      "WorkType": {
+      "Classroom": {
         "type": "object",
-        "title": "WorkType",
+        "title": "Classroom",
         "properties": {
           "id": {
             "type": "string"
           },
           "title": {
             "type": "string"
+          },
+          "number": {
+            "type": "number"
           }
         },
         "required": [
           "id",
-          "title"
+          "title",
+          "number"
+        ]
+      },
+      "Employee": {
+        "type": "object",
+        "title": "Employee",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "individualId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "individualId"
         ]
       }
     }

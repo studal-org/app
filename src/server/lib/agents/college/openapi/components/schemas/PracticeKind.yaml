@@ -3,18 +3,25 @@ title: Practice Kind
 properties:
   id:
     type: string
+    format: uuid
   practiceType:
-    enum:
-      - educational
-      - internship
-      - undergraduate
+    anyOf:
+      - enum:
+        - educational
+        - internship
+        - undergraduate
+      - type: "null"
   title:
     type: string
   shortTitle:
     type: string
   fullTitle:
-    type: string
+    anyOf:
+      - type: string
+      - type: "null"
 required:
   - id
+  - practiceType
   - title
   - shortTitle
+  - fullTitle

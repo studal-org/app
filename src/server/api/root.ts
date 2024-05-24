@@ -1,8 +1,13 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { authRouter } from "./routers/auth";
+import { classroomsRouter } from "./routers/classrooms";
 import { controlTypesRouter } from "./routers/control-types";
 import { disciplinesRouter } from "./routers/disciplines";
+import { employeesRouter } from "./routers/employees";
+import { individualsRouter } from "./routers/individuals";
+import { periodSchedulesRouter } from "./routers/period-schedules";
 import { practiceKindsRouter } from "./routers/practice-kinds";
+import { scheduleForDateRouter } from "./routers/schedule-for-date";
 import { userRouter } from "./routers/users";
 import { workTypesRouter } from "./routers/work-types";
 
@@ -18,6 +23,11 @@ export const appRouter = createTRPCRouter({
   controlTypes: controlTypesRouter,
   workTypes: workTypesRouter,
   practiceKinds: practiceKindsRouter,
+  scheduleForDate: scheduleForDateRouter,
+  periodSchedules: periodSchedulesRouter,
+  classrooms: classroomsRouter,
+  employees: employeesRouter,
+  individuals: individualsRouter,
 });
 
 // export type definition of API

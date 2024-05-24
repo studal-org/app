@@ -1,3 +1,4 @@
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/trpc/server";
 import { TRPCClientError } from "@trpc/client";
 import { TRPCError } from "@trpc/server";
@@ -11,14 +12,16 @@ const StudentLayout: FC<{ children: ReactNode }> = async ({ children }) => {
   try {
     await api.user.student.read();
     return (
-      <div className="min-h-full grid grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
+      <div className="min-h-full max-h-full grid grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
         <DashboardHeader className="border-b backdrop-blur-3xl bg-background/40">
           <StudentNavbar />
           <Suspense fallback={<UserMenuLoading />}>
             <UserMenu />
           </Suspense>
         </DashboardHeader>
-        <main className="container mt-8">{children}</main>
+        <ScrollArea>
+          <main className="container mt-8">{children}</main>
+        </ScrollArea>
       </div>
     );
   } catch (error) {

@@ -34,9 +34,17 @@ const formSchema = z.object({
 });
 
 const EmailMethod: FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const initiateEmailAuth = api.auth.email.initiate.useMutation();
+  const { mutate, isPending } = api.auth.email.initiate.useMutation({
+    onError: ({ data }) => {
+      if (data?.code === "NOT_FOUND")
+        toast.error("Не смогли найти вас 😥", {
+          description: "Пользователь с такой электронной почтой не существует",
+        });
+    },
+    onSuccess: () => {
+      setIsAlertOpen(true);
+    },
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,20 +53,7 @@ const EmailMethod: FC = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
-    await initiateEmailAuth.mutateAsync(values, {
-      onError: ({ data }) => {
-        if (data?.code === "NOT_FOUND")
-          toast.error("Не смогли найти вас 😥", {
-            description:
-              "Пользователь с такой электронной почтой не существует",
-          });
-
-        setIsLoading(false);
-      },
-    });
-    setIsAlertOpen(true);
-    setIsLoading(false);
+    mutate(values);
   };
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -70,8 +65,10 @@ const EmailMethod: FC = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Отправили ссылку на почту</AlertDialogTitle>
             <AlertDialogDescription>
-              <div>Чтобы войти, перейдите по ссылке в письме.</div>
-              <div>Эту вкладку можно закрыть.</div>
+              <span className="block">
+                Чтобы войти, перейдите по ссылке в письме.
+              </span>
+              <span className="block">Эту вкладку можно закрыть.</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -88,14 +85,14 @@ const EmailMethod: FC = () => {
               <FormItem>
                 <FormLabel>Электронная почта</FormLabel>
                 <FormControl>
-                  <Input disabled={isLoading} {...field} />
+                  <Input disabled={isPending} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button disabled={isLoading} className="w-full" type="submit">
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button disabled={isPending} className="w-full" type="submit">
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Продолжить
           </Button>
         </form>

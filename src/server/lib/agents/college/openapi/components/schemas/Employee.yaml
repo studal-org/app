@@ -1,0 +1,14 @@
+type: object
+title: Employee
+properties:
+  id:
+    type: string
+    format: uuid
+  individualId:
+    anyOf:
+      - type: string
+        format: uuid
+      - type: "null"
+required:
+  - id
+  - individualId

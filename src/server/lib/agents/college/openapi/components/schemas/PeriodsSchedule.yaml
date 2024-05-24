@@ -12,13 +12,24 @@ properties:
       type: object
       properties:
         periodNumber:
-          type: integer
+          anyOf:
+            - type: integer
+            - type: "null"
         startTime:
-          type: string
-          format: time
+          anyOf:
+            - type: string
+              format: time
+            - type: "null"
         endTime:
-          type: string
-          format: time
+          anyOf:
+            - type: string
+              format: time
+            - type: "null"
+      required:
+        - periodNumber
+        - startTime
+        - endTime
 required:
   - id
   - name
+  - schedule

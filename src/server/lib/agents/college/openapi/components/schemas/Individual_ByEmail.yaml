@@ -3,10 +3,30 @@ title: Individual_ByEmail
 properties:
   id:
     type: string
+    format: uuid
   fullName:
-    type: string
+    anyOf:
+      - type: string
+      - type: "null"
   email:
     type: string
+  name:
+    anyOf:
+      - type: object
+        properties:
+          first:
+            type: string
+          middle:
+            type: string
+          last:
+            type: string
+        required:
+          - first
+          - middle
+          - last
+      - type: "null"
 required:
   - id
+  - fullName
   - email
+  - name

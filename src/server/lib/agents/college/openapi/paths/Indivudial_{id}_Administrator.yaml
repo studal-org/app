@@ -13,7 +13,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Administrator.yaml
+            $ref: ../components/schemas/Administrator_ByIndividual.yaml
     "404":
       description: Not Found
       content:

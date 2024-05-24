@@ -36,7 +36,7 @@ export const emailRouter = createTRPCRouter({
         });
       }
 
-      const { id: userId, ...updateData } = individual.data;
+      const { id: userId, name: _, ...updateData } = individual.data;
       await db
         .insert(users)
         .values(individual.data)
