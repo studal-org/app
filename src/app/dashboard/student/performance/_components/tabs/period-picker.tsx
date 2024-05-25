@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { usePeriod } from "../_hooks/period";
+import { usePeriod } from "../../_hooks/period";
 
 const PeriodPicker: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,

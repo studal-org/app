@@ -1,5 +1,3 @@
-"use client";
-
 import { TabsContent } from "@/components/ui/tabs";
 import { type components } from "@/server/lib/agents/college/defs";
 import { Suspense, type FC } from "react";
