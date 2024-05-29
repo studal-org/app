@@ -1,26 +1,57 @@
 import { TabsContent } from "@/components/ui/tabs";
-import { type components } from "@/server/lib/agents/college/defs";
+import { api } from "@/trpc/react";
+import { useAtom } from "jotai";
 import { Suspense, type FC } from "react";
+import { usePeriod } from "../../../_hooks/period";
+import { performanceFiltersAtom } from "../../filters";
 import PerformanceByDate from "./date";
 import PerformanceByDiscipline from "./discipline";
+import { PerformanceElementGroupLoading } from "./performance-element/group";
 
-const PerformanceTabsContents: FC<{
-  performance: components["schemas"]["StudentPerformance"][];
-}> = ({ performance }) => {
+const PerformanceTabsContents: FC = () => {
+  return (
+    <div className="flex flex-col gap-4 mt-8">
+      <Suspense fallback={<PerformanceTabsContentsContentLoading />}>
+        <PerformanceTabsContentsContent />
+      </Suspense>
+    </div>
+  );
+};
+
+const PerformanceTabsContentsContent: FC = () => {
+  const [period] = usePeriod();
+  const [performance] = api.user.student.performance.read.useSuspenseQuery({
+    ...period,
+  });
+
+  const [filters] = useAtom(performanceFiltersAtom);
+
+  const filtered = performance
+    .filter((item) =>
+      [...filters].every(([_, { predicate }]) => predicate(item)),
+    )
+    .toSorted(
+      ({ date: a }, { date: b }) =>
+        new Date(b).getTime() - new Date(a).getTime(),
+    );
   return (
     <>
-      <TabsContent value="date" className="mt-8">
-        <Suspense fallback="Loading...">
-          <PerformanceByDate performance={performance} />
-        </Suspense>
+      <TabsContent value="date" asChild>
+        <PerformanceByDate performance={filtered} />
       </TabsContent>
-      <TabsContent value="discipline" className="mt-8">
-        <Suspense fallback="Loading...">
-          <PerformanceByDiscipline performance={performance} />
-        </Suspense>
+      <TabsContent value="discipline" asChild>
+        <PerformanceByDiscipline performance={filtered} />
       </TabsContent>
     </>
   );
 };
+
+const PerformanceTabsContentsContentLoading: FC = () => (
+  <>
+    {[...Array(5).keys()].map((key) => (
+      <PerformanceElementGroupLoading key={key} />
+    ))}
+  </>
+);
 
 export default PerformanceTabsContents;

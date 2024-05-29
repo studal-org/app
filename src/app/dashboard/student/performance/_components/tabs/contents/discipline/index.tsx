@@ -1,21 +1,18 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { format } from "date-fns";
-import { type FC, type HTMLAttributes } from "react";
+import { type FC } from "react";
 import Discipline from "../../../../../_components/discipline";
-import PerformanceElement from "../../../performance-element";
+import PerformanceElement from "../performance-element";
+import {
+  PerformanceElementGroup,
+  PerformanceElementGroupContent,
+  PerformanceElementGroupHeader,
+  PerformanceElementGroupTitle,
+} from "../performance-element/group";
 
-const PerformanceByDiscipline: FC<
-  HTMLAttributes<HTMLDivElement> & {
-    performance: components["schemas"]["StudentPerformance"][];
-  }
-> = ({ performance, className, ...props }) => {
-  // const [period] = usePeriod();
-  // const [performance] = api.user.student.performance.read.useSuspenseQuery({
-  //   ...period,
-  // });
-
+const PerformanceByDiscipline: FC<{
+  performance: components["schemas"]["StudentPerformance"][];
+}> = ({ performance }) => {
   const performanceByDiscipline = performance.reduce((acc, v) => {
     const discipline = v.discipline;
     const disciplineKey =
@@ -31,16 +28,18 @@ const PerformanceByDiscipline: FC<
   }, new Map<`${string}/${string}`, { discipline: components["schemas"]["StudentPerformance"]["discipline"]; performanceForDiscipline: typeof performance }>());
 
   return (
-    <div className={cn("flex flex-col gap-4", className)} {...props}>
+    <>
       {[...performanceByDiscipline].map(
         ([disciplineKey, { discipline, performanceForDiscipline }]) => (
-          <Card key={disciplineKey} className="bg-card/40">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-base font-medium uppercase text-muted-foreground">
-                <Discipline discipline={discipline} />
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-6">
+          <PerformanceElementGroup key={disciplineKey}>
+            <PerformanceElementGroupHeader>
+              <PerformanceElementGroupTitle>
+                <div>
+                  <Discipline discipline={discipline} />
+                </div>
+              </PerformanceElementGroupTitle>
+            </PerformanceElementGroupHeader>
+            <PerformanceElementGroupContent>
               {performanceForDiscipline.map((document) => (
                 <PerformanceElement
                   key={`${document.objectType}/${document.objectId}`}
@@ -48,11 +47,11 @@ const PerformanceByDiscipline: FC<
                   title={<div>{format(document.date, "d MMM y, iiiiii")}</div>}
                 />
               ))}
-            </CardContent>
-          </Card>
+            </PerformanceElementGroupContent>
+          </PerformanceElementGroup>
         ),
       )}
-    </div>
+    </>
   );
 };
 

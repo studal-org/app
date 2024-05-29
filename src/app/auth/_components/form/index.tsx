@@ -1,5 +1,6 @@
 import { type FC } from "react";
 
+import { Separator } from "@/components/ui/separator";
 import EmailMethod from "./email";
 import OauthMethod from "./oauth";
 
@@ -7,14 +8,15 @@ const AuthForm: FC = () => {
   return (
     <div className="flex flex-col gap-5">
       <EmailMethod />
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+      <div className="flex items-center gap-x-2">
+        <div className="grow">
+          <Separator />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Или войти через
-          </span>
+        <span className="text-muted-foreground text-xs uppercase">
+          Или войти через
+        </span>
+        <div className="grow">
+          <Separator />
         </div>
       </div>
       <OauthMethod />

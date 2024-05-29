@@ -69,8 +69,8 @@ const WorkTypesFilter: FC<ComponentProps<typeof Popover>> = (props) => {
             <div className="flex items-center">
               <WorkTypesIcon className="w-4 h-4 mr-2" />
               {selected.size
-                ? `Виды контроля: ${selected.size}`
-                : "Виды контроля"}
+                ? `Виды нагрузки: ${selected.size}`
+                : "Виды нагрузки"}
             </div>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -87,7 +87,7 @@ const WorkTypesFilter: FC<ComponentProps<typeof Popover>> = (props) => {
             <CommandEmpty>Ничего не найдено</CommandEmpty>
             <CommandList>
               <Suspense fallback={<WorkTypesFilterContentLoading />}>
-                <DisciplinesFilterContent />
+                <WorkTypesFilterContent />
               </Suspense>
             </CommandList>
           </Command>
@@ -97,7 +97,7 @@ const WorkTypesFilter: FC<ComponentProps<typeof Popover>> = (props) => {
   );
 };
 
-const DisciplinesFilterContent: FC = () => {
+const WorkTypesFilterContent: FC = () => {
   const [period] = usePeriod();
   const [performance] = api.user.student.performance.read.useSuspenseQuery({
     ...period,

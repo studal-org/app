@@ -11,8 +11,8 @@ const AuthPage: FC = async () => {
   if (session) redirect("/dashboard");
 
   return (
-    <div className="grid h-screen lg:grid-cols-2">
-      <div className="bg-gradient-to-br from-primary/5 to-primary/20 text-muted-foreground hidden p-10 lg:block">
+    <div className="grid h-screen lg:grid-cols-2 bg-gradient-to-br from-primary/5 to-primary/20">
+      <div className="hidden p-10 lg:block text-muted-foreground">
         <nav>
           <ul>
             <li>
@@ -26,7 +26,7 @@ const AuthPage: FC = async () => {
           </ul>
         </nav>
       </div>
-      <div className="flex flex-col items-center shadow-xl justify-center p-10">
+      <div className="flex flex-col items-center shadow-xl justify-center p-10 bg-background/40">
         <div className="flex w-full max-w-sm flex-col gap-10">
           <h2 className="text-center text-3xl font-bold">Вход</h2>
           <AuthForm />

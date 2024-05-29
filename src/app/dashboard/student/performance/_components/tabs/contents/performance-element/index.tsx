@@ -2,8 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { type RouterOutputs } from "@/trpc/shared";
 import { Clock, UserX } from "lucide-react";
 import { type FC, type ReactNode } from "react";
-import ControlType from "../../../_components/control-type";
-import WorkType from "../../../_components/work-type";
+import ControlType from "../../../../../_components/control-type";
+import WorkType from "../../../../../_components/work-type";
 import Mark from "./mark";
 
 const PerformanceElement: FC<

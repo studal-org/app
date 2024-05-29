@@ -1,16 +1,18 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { format } from "date-fns";
-import type { FC, HTMLAttributes } from "react";
+import type { FC } from "react";
 import Discipline from "../../../../../_components/discipline";
-import PerformanceElement from "../../../performance-element";
+import PerformanceElement from "../performance-element";
+import {
+  PerformanceElementGroup,
+  PerformanceElementGroupContent,
+  PerformanceElementGroupHeader,
+  PerformanceElementGroupTitle,
+} from "../performance-element/group";
 
-const PerformanceByDate: FC<
-  HTMLAttributes<HTMLDivElement> & {
-    performance: components["schemas"]["StudentPerformance"][];
-  }
-> = ({ performance, className, ...props }) => {
+const PerformanceByDate: FC<{
+  performance: components["schemas"]["StudentPerformance"][];
+}> = ({ performance }) => {
   const performanceByDate = performance.reduce((acc, v) => {
     const date = new Date(v.date);
     const dateKey = date.getTime();
@@ -21,15 +23,15 @@ const PerformanceByDate: FC<
   }, new Map<number, { date: Date; performanceForDate: components["schemas"]["StudentPerformance"][] }>());
 
   return (
-    <div className={cn("flex flex-col gap-4", className)} {...props}>
+    <>
       {[...performanceByDate].map(([dateKey, { date, performanceForDate }]) => (
-        <Card key={dateKey} className="bg-card/40">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-base font-medium uppercase text-muted-foreground">
+        <PerformanceElementGroup key={dateKey}>
+          <PerformanceElementGroupHeader>
+            <PerformanceElementGroupTitle>
               {format(date, "d MMM y, iiiiii")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-6">
+            </PerformanceElementGroupTitle>
+          </PerformanceElementGroupHeader>
+          <PerformanceElementGroupContent>
             {performanceForDate.map((document) => (
               <PerformanceElement
                 key={`${document.objectType}/${document.objectId}`}
@@ -37,10 +39,10 @@ const PerformanceByDate: FC<
                 title={<Discipline discipline={document.discipline} />}
               />
             ))}
-          </CardContent>
-        </Card>
+          </PerformanceElementGroupContent>
+        </PerformanceElementGroup>
       ))}
-    </div>
+    </>
   );
 };
 
