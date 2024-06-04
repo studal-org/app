@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    image: shmookoff/studal:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_DB}"
+
+  postgres:
+    image: postgres
+    restart: on-failure
+    environment:
+      POSTGRES_USER: "${DATABASE_USER}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+      POSTGRES_DB: "${DATABASE_DB}"
+    ports:
+      - "${DATABASE_PORT}:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data

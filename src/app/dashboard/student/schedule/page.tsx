@@ -1,7 +1,6 @@
 "use client";
 
-import { Suspense, type FC } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { type FC } from "react";
 import DatePicker from "./_components/date-picker";
 import ScheduleView from "./_components/view";
 
@@ -13,11 +12,7 @@ const SchedulePage: FC = () => {
       </h1>
       <div className="mt-4">
         <DatePicker />
-        <ErrorBoundary fallback={<span>error</span>}>
-          <Suspense fallback="loading">
-            <ScheduleView className="mt-8" />
-          </Suspense>
-        </ErrorBoundary>
+        <ScheduleView className="mt-8" />
       </div>
     </div>
   );

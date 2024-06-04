@@ -1,16 +1,51 @@
 import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { api } from "@/trpc/react";
-import { Fragment, type FC, type HTMLProps } from "react";
-import { useScheduleForDate } from "../_hooks/schedule-for-date";
+import { isTRPCClientError } from "@/trpc/shared";
+import { Fragment, Suspense, type FC, type HTMLProps } from "react";
+import {
+  ErrorBoundary,
+  useErrorBoundary,
+  type FallbackProps,
+} from "react-error-boundary";
+import { useScheduleParams } from "../_hooks/schedule-params";
 import PeriodsBreak from "./break";
 import Period from "./period";
 
-const ScheduleView: FC<HTMLProps<HTMLDivElement>> = ({
+const ScheduleView: FC = () => {
+  const [scheduleParams] = useScheduleParams();
+
+  return (
+    <ErrorBoundary
+      FallbackComponent={ScheduleViewContentError}
+      resetKeys={[scheduleParams]}
+    >
+      <Suspense>
+        <ScheduleViewContent />
+      </Suspense>
+    </ErrorBoundary>
+  );
+};
+
+const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
   className,
   ...props
 }) => {
-  const scheduleForDate = useScheduleForDate();
+  const [{ groupId, scheduleDate }] = useScheduleParams();
+
+  if (!groupId) return undefined;
+
+  const [scheduleForDate] =
+    api.scheduleForDate.findByScheduleDateForGroupId.useSuspenseQuery(
+      {
+        groupId,
+        scheduleDate,
+      },
+      {
+        retry: (failureCount, { data }) =>
+          data?.code !== "NOT_FOUND" && failureCount <= 3,
+      },
+    );
 
   if (!scheduleForDate) return null;
 
@@ -70,6 +105,15 @@ const ScheduleView: FC<HTMLProps<HTMLDivElement>> = ({
       )}
     </div>
   );
+};
+
+const ScheduleViewContentError: FC<FallbackProps> = ({ error }) => {
+  const { showBoundary } = useErrorBoundary();
+
+  if (isTRPCClientError(error) && error.data?.code === "NOT_FOUND")
+    return "Not Found";
+
+  showBoundary(error);
 };
 
 export default ScheduleView;

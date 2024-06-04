@@ -2,7 +2,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
 import { type AppRouter } from "@/server/api/root";
-import { type LoggerLinkOptions } from "@trpc/client";
+import { TRPCClientError, type LoggerLinkOptions } from "@trpc/client";
 
 export const transformer = superjson;
 
@@ -38,3 +38,7 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  * @example type HelloOutput = RouterOutputs['example']['hello']
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
+
+export const isTRPCClientError = (
+  cause: unknown,
+): cause is TRPCClientError<AppRouter> => cause instanceof TRPCClientError;
