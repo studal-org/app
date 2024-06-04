@@ -28,6 +28,7 @@ export const env = createEnv({
     SESSION_SECRET: z.string().transform((v) => new TextEncoder().encode(v)),
     SESSION_TTL: z.coerce.number(),
     APP_INTERNAL_KEY: z.string(),
+    APP_INTERNAL_HOST: z.string().url(),
   },
 
   /**
@@ -60,6 +61,7 @@ export const env = createEnv({
     APP_INTERNAL_KEY: process.env.APP_INTERNAL_KEY,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_TZ: process.env.NEXT_PUBLIC_TZ,
+    APP_INTERNAL_HOST: process.env.APP_INTERNAL_HOST,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

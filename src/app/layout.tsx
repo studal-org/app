@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import Providers from "./dashboard/_components/providers";
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });

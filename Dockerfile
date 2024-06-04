@@ -1,15 +1,19 @@
 FROM node:18-alpine AS base
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
 # Install dependencies
 COPY package.json pnpm-lock.yaml .npmrc ./
-RUN yarn global add pnpm && pnpm i --frozen-lockfile
-
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -22,7 +26,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN --mount=type=secret,id=S1C_HOST --mount=type=secret,id=S1C_USERNAME --mount=type=secret,id=S1C_PASSWORD ./next-build.sh
+RUN SKIP_ENV_VALIDATION=true pnpm build
 
 # If using npm comment out above and use below instead
 # RUN npm run build
@@ -52,6 +56,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 
 EXPOSE 3000
+
+ENV APP_INTERNAL_HOST "http://0.0.0.0:3000"
 
 ENV PORT 3000
 # set hostname to localhost

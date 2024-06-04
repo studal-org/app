@@ -9,4 +9,5 @@ export default {
     url: env.DATABASE_URL,
   },
   tablesFilter: ["studal_*"],
+  out: "./drizzle",
 } satisfies Config;

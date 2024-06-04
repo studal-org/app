@@ -1,14 +1,24 @@
-version: "3.8"
-
 services:
   app:
-    image: shmookoff/studal:latest
+    image: ghcr.io/studal-org/app:latest
     restart: always
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: "postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_DB}"
-
+      AGENT_COLLEGE_URL: $AGENT_COLLEGE_URL
+      AGENT_COLLEGE_USERNAME: $AGENT_COLLEGE_USERNAME
+      AGENT_COLLEGE_PASSWORD: $AGENT_COLLEGE_PASSWORD
+      SMTP_HOST: $SMTP_HOST
+      SMTP_PORT: $SMTP_PORT
+      SMTP_USERNAME: $SMTP_USERNAME
+      SMTP_PASSWORD: $SMTP_PASSWORD
+      SMTP_FROM: $SMTP_FROM
+      SESSION_SECRET: $SESSION_SECRET
+      SESSION_TTL: $SESSION_TTL
+      APP_INTERNAL_KEY: $APP_INTERNAL_KEY
+      NEXT_PUBLIC_APP_URL: $NEXT_PUBLIC_APP_URL
+      NEXT_PUBLIC_TZ: $NEXT_PUBLIC_TZ
   postgres:
     image: postgres
     restart: on-failure
@@ -20,3 +30,6 @@ services:
       - "${DATABASE_PORT}:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:

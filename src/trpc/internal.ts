@@ -4,7 +4,7 @@ import { env } from "@/env";
 import { type AppRouter } from "@/server/api/root";
 import { createTRPCClient, httpLink, loggerLink } from "@trpc/client";
 import { headers } from "next/headers";
-import { getUrl, loggerLinkEnabled, transformer } from "./shared";
+import { loggerLinkEnabled, transformer, trpcPath } from "./shared";
 
 export const api = createTRPCClient<AppRouter>({
   links: [
@@ -13,7 +13,7 @@ export const api = createTRPCClient<AppRouter>({
     }),
     httpLink({
       transformer,
-      url: getUrl(),
+      url: env.APP_INTERNAL_HOST + trpcPath,
       async headers() {
         const headersStore = headers();
         const result = new Headers();
