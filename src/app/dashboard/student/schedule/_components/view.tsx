@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { api } from "@/trpc/react";
 import { isTRPCClientError } from "@/trpc/shared";
-import { Fragment, Suspense, type FC, type HTMLProps } from "react";
+import {
+  Fragment,
+  Suspense,
+  type FC,
+  type HTMLAttributes,
+  type HTMLProps,
+} from "react";
 import {
   ErrorBoundary,
   useErrorBoundary,
@@ -12,18 +18,20 @@ import { useScheduleParams } from "../_hooks/schedule-params";
 import PeriodsBreak from "./break";
 import Period from "./period";
 
-const ScheduleView: FC = () => {
+const ScheduleView: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const [scheduleParams] = useScheduleParams();
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ScheduleViewContentError}
-      resetKeys={[scheduleParams]}
-    >
-      <Suspense>
-        <ScheduleViewContent />
-      </Suspense>
-    </ErrorBoundary>
+    <div {...props}>
+      <ErrorBoundary
+        FallbackComponent={ScheduleViewContentError}
+        resetKeys={[scheduleParams]}
+      >
+        <Suspense>
+          <ScheduleViewContent />
+        </Suspense>
+      </ErrorBoundary>
+    </div>
   );
 };
 
@@ -111,7 +119,7 @@ const ScheduleViewContentError: FC<FallbackProps> = ({ error }) => {
   const { showBoundary } = useErrorBoundary();
 
   if (isTRPCClientError(error) && error.data?.code === "NOT_FOUND")
-    return "Not Found";
+    return "Расписание на заданную дату не было найдено";
 
   showBoundary(error);
 };

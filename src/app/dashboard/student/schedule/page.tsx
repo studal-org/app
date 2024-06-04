@@ -10,9 +10,9 @@ const SchedulePage: FC = () => {
       <h1 className="w-fit items-center border-b-2 text-2xl font-semibold tracking-tight lg:text-3xl">
         Расписание
       </h1>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col gap-2">
         <DatePicker />
-        <ScheduleView className="mt-8" />
+        <ScheduleView />
       </div>
     </div>
   );
