@@ -3,6 +3,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ExternalLink, Home, Menu } from "lucide-react";
 import Link from "next/link";
 
+const links = [{ href: "https://nv-study.ru", text: "Сайт колледжа" }];
+
 const StudentNavbar: React.FC = () => {
   return (
     <nav className="flex gap-2 text-muted-foreground items-center">
@@ -12,7 +14,15 @@ const StudentNavbar: React.FC = () => {
             <Menu />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left"></SheetContent>
+        <SheetContent side="left">
+          {links.map(({ href, text }) => (
+            <Button key={href} asChild variant="link" size="sm">
+              <Link href="https://nv-study.ru">
+                {text} <ExternalLink className="w-4 h-4 ml-1" />
+              </Link>
+            </Button>
+          ))}
+        </SheetContent>
       </Sheet>
       <Button asChild size="sm">
         <Link href="/dashboard/student">
@@ -21,11 +31,13 @@ const StudentNavbar: React.FC = () => {
         </Link>
       </Button>
       <div className="gap-2 hidden md:flex items-center">
-        <Button asChild variant="link" size="sm">
-          <Link href="https://nv-study.ru">
-            Сайт колледжа <ExternalLink className="w-4 h-4 ml-1" />
-          </Link>
-        </Button>
+        {links.map(({ href, text }) => (
+          <Button key={href} asChild variant="link" size="sm">
+            <Link href="https://nv-study.ru">
+              {text} <ExternalLink className="w-4 h-4 ml-1" />
+            </Link>
+          </Button>
+        ))}
       </div>
     </nav>
   );

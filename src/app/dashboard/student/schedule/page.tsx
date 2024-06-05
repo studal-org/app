@@ -12,7 +12,7 @@ const SchedulePage: FC = () => {
       </h1>
       <div className="mt-4 flex flex-col gap-2">
         <DatePicker />
-        <ScheduleView />
+        <ScheduleView className="mt-8" />
       </div>
     </div>
   );

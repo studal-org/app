@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { api } from "@/trpc/react";
-import { isTRPCClientError } from "@/trpc/shared";
+import { isTRPCClientError, type RouterOutputs } from "@/trpc/shared";
 import {
   Fragment,
   Suspense,
@@ -59,6 +59,7 @@ const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
 
   const [periodsSchedule] = api.periodSchedules.read.useSuspenseQuery({
     id: scheduleForDate.periodScheduleId,
+    forDate: scheduleForDate.scheduleDate,
   });
 
   const periodsByPeriodNumber = scheduleForDate.schedule
@@ -78,7 +79,7 @@ const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
         acc.set(periodNumber, { periodSchedule, classes: [p] });
       else forPeriodNumber.classes.push(p);
       return acc;
-    }, new Map<number, { periodSchedule: components["schemas"]["PeriodsSchedule"]["schedule"][number] | undefined; classes: components["schemas"]["Period_AsItem"][] }>());
+    }, new Map<number, { periodSchedule: RouterOutputs["periodSchedules"]["read"]["schedule"][number] | undefined; classes: components["schemas"]["Period_AsItem"][] }>());
 
   return (
     <div {...props} className={cn("flex flex-col gap-4", className)}>
@@ -86,7 +87,6 @@ const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
         ([periodNumber, { periodSchedule, classes }], i, array) => (
           <Fragment key={periodNumber}>
             <Period
-              scheduleDate={scheduleForDate.scheduleDate}
               periodNumber={periodNumber}
               periodSchedule={periodSchedule}
               classes={classes}
@@ -100,7 +100,6 @@ const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
                   <span className="text-muted-foreground">
                     Перерыв{" "}
                     <PeriodsBreak
-                      scheduleDate={scheduleForDate.scheduleDate}
                       prev={periodSchedule}
                       next={array[i + 1]![1].periodSchedule}
                     />

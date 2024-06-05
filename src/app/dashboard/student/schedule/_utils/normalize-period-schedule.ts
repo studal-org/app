@@ -13,14 +13,14 @@ export const normalizePeriodSchedule = (props: {
 
   const scheduleDate = DateTime.fromISO(props.scheduleDate, {
     setZone: true,
-  }).setZone(env.NEXT_PUBLIC_TZ, { keepLocalTime: true });
+  }).setZone(env.APP_TZ, { keepLocalTime: true });
 
   const { year, month, day } = scheduleDate;
 
   const normalizeDate = (v: string) =>
     DateTime.fromISO(v, { setZone: true })
       .set({ year, month, day })
-      .setZone(env.NEXT_PUBLIC_TZ, { keepLocalTime: true });
+      .setZone(env.APP_TZ, { keepLocalTime: true });
 
   return {
     ...props.periodSchedule,

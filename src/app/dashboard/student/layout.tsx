@@ -20,7 +20,7 @@ const StudentLayout: FC<{ children: ReactNode }> = async ({ children }) => {
           </Suspense>
         </DashboardHeader>
         <ScrollArea>
-          <main className="container mt-8">{children}</main>
+          <main className="container my-8">{children}</main>
         </ScrollArea>
       </div>
     );

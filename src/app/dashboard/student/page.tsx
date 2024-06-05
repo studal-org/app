@@ -25,13 +25,13 @@ const StudentPage: FC = async () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2">
           <Widget
             title="Расписание"
-            content={{ text: "8", description: "уроков сегодня" }}
+            content={{ text: "-", description: "уроков сегодня" }}
             Icon={Calendar}
             href="/dashboard/student/schedule"
           />
           <Widget
             title="Успеваемость"
-            content={{ text: "5.00", description: "средний балл за неделю" }}
+            content={{ text: "-", description: "средний балл за неделю" }}
             Icon={TrendingUp}
             href="/dashboard/student/performance"
           />

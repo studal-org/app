@@ -29,6 +29,8 @@ export const env = createEnv({
     SESSION_TTL: z.coerce.number(),
     APP_INTERNAL_KEY: z.string(),
     APP_INTERNAL_HOST: z.string().url(),
+    APP_URL: z.string().url(),
+    APP_TZ: z.string(),
   },
 
   /**
@@ -36,10 +38,7 @@ export const env = createEnv({
    * isn't built with invalid env vars. To expose them to the client, prefix them with
    * `NEXT_PUBLIC_`.
    */
-  client: {
-    NEXT_PUBLIC_APP_URL: z.string().url(),
-    NEXT_PUBLIC_TZ: z.string(),
-  },
+  client: {},
 
   /**
    * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
@@ -59,8 +58,8 @@ export const env = createEnv({
     SESSION_SECRET: process.env.SESSION_SECRET,
     SESSION_TTL: process.env.SESSION_TTL,
     APP_INTERNAL_KEY: process.env.APP_INTERNAL_KEY,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    NEXT_PUBLIC_TZ: process.env.NEXT_PUBLIC_TZ,
+    APP_URL: process.env.APP_URL,
+    APP_TZ: process.env.APP_TZ,
     APP_INTERNAL_HOST: process.env.APP_INTERNAL_HOST,
   },
   /**
