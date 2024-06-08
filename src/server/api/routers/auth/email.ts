@@ -56,7 +56,7 @@ export const emailRouter = createTRPCRouter({
           MagicLinkEmail({
             name: individual.data.fullName ?? individual.data.email,
             magicLink:
-              `${env.NEXT_PUBLIC_APP_URL}/auth/email/callback?` +
+              `${env.APP_URL}/auth/email/callback?` +
               new URLSearchParams({ authLinkId }).toString(),
           }),
         ),

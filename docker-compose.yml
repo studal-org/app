@@ -17,8 +17,8 @@ services:
       SESSION_SECRET: $SESSION_SECRET
       SESSION_TTL: $SESSION_TTL
       APP_INTERNAL_KEY: $APP_INTERNAL_KEY
-      NEXT_PUBLIC_APP_URL: $NEXT_PUBLIC_APP_URL
-      NEXT_PUBLIC_TZ: $NEXT_PUBLIC_TZ
+      APP_URL: $APP_URL
+      APP_TZ: $APP_TZ
   postgres:
     image: postgres
     restart: on-failure
