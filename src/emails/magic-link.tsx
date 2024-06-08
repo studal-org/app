@@ -31,7 +31,7 @@ const MagicLinkEmail = ({ name, magicLink }: MagicLinkEmailProps) => {
       <Head></Head>
       <Preview>{magicLinkEmailSubject}</Preview>
       <Tailwind config={config}>
-        <Body className="mx-auto my-auto">
+        <Body className="flex items-center justify-center">
           <Container className="max-w-md bg-card p-5">
             <Card>
               <CardHeader>
