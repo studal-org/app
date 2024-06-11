@@ -1,7 +1,8 @@
+import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { type RouterOutputs } from "@/trpc/shared";
-import { type FC } from "react";
-import PeriodClass from "./class";
+import { Fragment, type FC } from "react";
+import PeriodClass, { PeriodClassEmpty } from "./class";
 import PeriodTimespan from "./timespan";
 
 const Period: FC<{
@@ -23,16 +24,36 @@ const Period: FC<{
         {classes
           .map(({ subgroup, ...rest }) =>
             subgroup === null
-              ? { subgroup: -1, ...rest }
+              ? { subgroup: 0, ...rest }
               : { subgroup, ...rest },
           )
           .toSorted(({ subgroup: a }, { subgroup: b }) => a - b)
-          .map((periodClass) => (
-            <PeriodClass
-              key={periodClass.number}
-              periodClass={periodClass}
-              className="flex-grow basis-0 min-w-60"
-            />
+          .map((periodClass, i, array) => (
+            <Fragment key={periodClass.number}>
+              {(() => {
+                const prev = array[i - 1];
+                const diff = periodClass.subgroup - (prev?.subgroup ?? 0);
+                if (diff <= 1) return;
+                return (
+                  <>
+                    {[...Array(diff - 1).keys()].map((key) => (
+                      <PeriodClassEmpty
+                        key={key}
+                        className="flex-grow basis-0 min-w-60"
+                      />
+                    ))}
+                  </>
+                );
+              })()}
+              <PeriodClass
+                periodClass={periodClass}
+                className={cn(
+                  "flex-grow basis-0 min-w-60",
+                  periodClass.subgroup <= 0 && "basis-full",
+                  periodClass.subgroup <= 0 && array[i + 1] && "mb-4",
+                )}
+              />
+            </Fragment>
           ))}
       </div>
     </div>

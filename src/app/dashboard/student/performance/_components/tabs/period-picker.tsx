@@ -17,6 +17,7 @@ import { usePeriod } from "../../_hooks/period";
 
 const PeriodPicker: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
+  ...props
 }) => {
   const { locale } = getDefaultOptions();
   const toDate = new Date();
@@ -36,7 +37,7 @@ const PeriodPicker: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   };
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("w-full", className)} {...props}>
       <Popover>
         <PopoverTrigger asChild>
           <Button

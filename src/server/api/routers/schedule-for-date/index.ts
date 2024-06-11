@@ -1,5 +1,7 @@
+import { env } from "@/env";
 import { collegeAgent } from "@/server/lib/agents/college";
 import { TRPCError } from "@trpc/server";
+import { DateTime } from "luxon";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 
@@ -7,12 +9,17 @@ export const scheduleForDateRouter = createTRPCRouter({
   findByScheduleDateForGroupId: protectedProcedure
     .input(z.object({ scheduleDate: z.date(), groupId: z.string().uuid() }))
     .query(async ({ input }) => {
+      const scheduleDate = DateTime.fromJSDate(input.scheduleDate)
+        .setZone(env.APP_TZ)
+        .startOf("day")
+        .toFormat("yyyy-MM-dd");
+
       const scheduleForDateForGroup = await collegeAgent.GET(
         "/ScheduleForDate/FindByScheduleDate",
         {
           params: {
             query: {
-              scheduleDate: input.scheduleDate.toISOString(),
+              scheduleDate,
               groupId: input.groupId,
             },
           },

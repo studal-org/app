@@ -11,7 +11,7 @@ const SchedulePage: FC = () => {
         Расписание
       </h1>
       <div className="mt-4 flex flex-col gap-2">
-        <DatePicker />
+        <DatePicker className="sm:w-[300px]" />
         <ScheduleView className="mt-8" />
       </div>
     </div>

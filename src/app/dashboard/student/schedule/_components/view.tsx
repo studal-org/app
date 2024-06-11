@@ -47,7 +47,7 @@ const ScheduleViewContent: FC<HTMLProps<HTMLDivElement>> = ({
     api.scheduleForDate.findByScheduleDateForGroupId.useSuspenseQuery(
       {
         groupId,
-        scheduleDate,
+        scheduleDate: scheduleDate.toJSDate(),
       },
       {
         retry: (failureCount, { data }) =>

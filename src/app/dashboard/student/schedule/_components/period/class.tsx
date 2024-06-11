@@ -37,4 +37,17 @@ const PeriodClass: FC<
   );
 };
 
+export const PeriodClassEmpty: FC<ComponentProps<typeof Card>> = ({
+  className,
+  ...props
+}) => (
+  <Card className={cn("bg-card/40 flex flex-col", className)} {...props}>
+    <CardHeader className="pb-2">
+      <CardTitle className="text-lg font-medium text-foreground/50">
+        Пусто
+      </CardTitle>
+    </CardHeader>
+  </Card>
+);
+
 export default PeriodClass;
