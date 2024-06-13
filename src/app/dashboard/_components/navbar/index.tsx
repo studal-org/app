@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const links = [{ href: "https://nv-study.ru", text: "Сайт колледжа" }];
 
-const StudentNavbar: React.FC = () => {
+const DashboardNavbar: React.FC = () => {
   return (
     <nav className="flex gap-2 text-muted-foreground items-center">
       <Sheet>
@@ -17,7 +17,7 @@ const StudentNavbar: React.FC = () => {
         <SheetContent side="left">
           {links.map(({ href, text }) => (
             <Button key={href} asChild variant="link" size="sm">
-              <Link href="https://nv-study.ru">
+              <Link href={href}>
                 {text} <ExternalLink className="w-4 h-4 ml-1" />
               </Link>
             </Button>
@@ -33,7 +33,7 @@ const StudentNavbar: React.FC = () => {
       <div className="gap-2 hidden md:flex items-center">
         {links.map(({ href, text }) => (
           <Button key={href} asChild variant="link" size="sm">
-            <Link href="https://nv-study.ru">
+            <Link href={href}>
               {text} <ExternalLink className="w-4 h-4 ml-1" />
             </Link>
           </Button>
@@ -43,4 +43,4 @@ const StudentNavbar: React.FC = () => {
   );
 };
 
-export default StudentNavbar;
+export default DashboardNavbar;

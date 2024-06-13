@@ -3,6 +3,7 @@ import { authRouter } from "./routers/auth";
 import { classroomsRouter } from "./routers/classrooms";
 import { controlTypesRouter } from "./routers/control-types";
 import { disciplinesRouter } from "./routers/disciplines";
+import { educationalResourcesRouter } from "./routers/educational-resources";
 import { employeesRouter } from "./routers/employees";
 import { individualsRouter } from "./routers/individuals";
 import { periodSchedulesRouter } from "./routers/period-schedules";
@@ -28,6 +29,7 @@ export const appRouter = createTRPCRouter({
   classrooms: classroomsRouter,
   employees: employeesRouter,
   individuals: individualsRouter,
+  educationalResources: educationalResourcesRouter,
 });
 
 // export type definition of API

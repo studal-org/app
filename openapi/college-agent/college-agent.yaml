@@ -22,8 +22,8 @@ paths:
     $ref: paths/Individual_FindByEmail.yaml
   /Individual/{id}/Student:
     $ref: paths/Individual_{id}_Student.yaml
-  /Indivudial/{id}/Administrator:
-    $ref: paths/Indivudial_{id}_Administrator.yaml
+  /Individual/{id}/Administrator:
+    $ref: paths/Individual_{id}_Administrator.yaml
   /Student/{id}:
     $ref: paths/Student_{id}.yaml
   /Student/{id}/Performance:

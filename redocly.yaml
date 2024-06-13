@@ -1,6 +1,8 @@
 apis:
   college-agent@0.1.0:
-    root: ./src/server/lib/agents/college/openapi.yaml
+    root: ./openapi/college-agent/college-agent.yaml
+  placeholder@0.1.0:
+    root: ./openapi/placeholder/placeholder.yaml
 
 extends:
   - minimal

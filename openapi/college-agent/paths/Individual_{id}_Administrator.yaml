@@ -1,6 +1,6 @@
 get:
   summary: Read Administrator by Individual ID
-  operationId: get-Indivudial-id-Administrator
+  operationId: get-Individual-id-Administrator
   parameters:
     - name: id
       in: path

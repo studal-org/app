@@ -1,10 +1,11 @@
 import { relations } from "drizzle-orm";
-import { timestamp, uuid } from "drizzle-orm/pg-core";
+import { timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { ulid } from "ulidx";
 import { users } from ".";
 import { createTable } from "./create-table";
 
 export const sessions = createTable("sessions", {
-  jti: uuid("jti").primaryKey().defaultRandom(),
+  jti: varchar("jti").primaryKey().$defaultFn(ulid),
   sub: uuid("sub")
     .notNull()
     .references(() => users.id),

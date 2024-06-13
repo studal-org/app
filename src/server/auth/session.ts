@@ -36,7 +36,7 @@ export const sessionHandler = cache(
     if (!sessionInfo.token) return { fresh: false };
 
     const session = await findSession(sessionInfo.payload.jti);
-    if (!session) {
+    if (!session || !session.user.isActive) {
       sessionTokenController.destroy();
       return { fresh: true, sessionInfo: undefined };
     }

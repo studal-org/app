@@ -1,10 +1,11 @@
 import { relations } from "drizzle-orm";
-import { boolean, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { ulid } from "ulidx";
 import { createTable } from "./create-table";
 import { users } from "./users";
 
 export const authLinks = createTable("auth_links", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: varchar("id").primaryKey().$defaultFn(ulid),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   validUntil: timestamp("valid_until").notNull(),
   isUsed: boolean("is_used").notNull().default(false),

@@ -3,9 +3,9 @@ import { TRPCError } from "@trpc/server";
 import { redirect } from "next/navigation";
 import { type FC, type ReactNode } from "react";
 
-const StudentLayout: FC<{ children: ReactNode }> = async ({ children }) => {
+const AdminLayout: FC<{ children: ReactNode }> = async ({ children }) => {
   try {
-    await api.user.student.read();
+    await api.user.admin.read();
     return <>{children}</>;
   } catch (error) {
     if (error instanceof TRPCError) {
@@ -17,4 +17,4 @@ const StudentLayout: FC<{ children: ReactNode }> = async ({ children }) => {
   }
 };
 
-export default StudentLayout;
+export default AdminLayout;

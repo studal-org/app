@@ -10,7 +10,10 @@
     "dev": "dotenv -- bash -c 'next dev -p ${APP_PORT}'",
     "lint": "next lint",
     "start": "next start",
-    "email:dev": "email dev --dir ./src/emails --port 3001"
+    "email:dev": "email dev --dir ./src/emails --port 3001",
+    "openapi:bundle": "pnpm redocly bundle -o ./openapi/bundled/ --ext json",
+    "openapi:generate:college-agent": "pnpm openapi-typescript ./openapi/bundled/college-agent.json -o ./src/server/lib/agents/college/defs.ts",
+    "openapi:generate": "pnpm openapi:bundle && pnpm openapi:generate:college-agent"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -41,6 +44,7 @@
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.1.3",
     "drizzle-orm": "^0.29.4",
+    "drizzle-zod": "^0.5.1",
     "jose": "^5.2.2",
     "jotai": "^2.8.1",
     "jotai-effect": "^1.0.0",
@@ -63,6 +67,7 @@
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "ulidx": "^2.3.0",
     "usehooks-ts": "^3.1.0",
     "vaul": "^0.9.1",
     "zod": "^3.22.4"

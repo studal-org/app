@@ -83,9 +83,11 @@ export const sessionTokenController = {
       return { payload: transformIncomingPayload(payload), token };
     } catch (error) {
       if (
-        [jose.errors.JWTExpired, jose.errors.JWTInvalid].some(
-          (errorType) => error instanceof errorType,
-        )
+        [
+          jose.errors.JWTExpired,
+          jose.errors.JWTInvalid,
+          jose.errors.JWSSignatureVerificationFailed,
+        ].some((errorType) => error instanceof errorType)
       )
         return this.destroy();
       throw error;

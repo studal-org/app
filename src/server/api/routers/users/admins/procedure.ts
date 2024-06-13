@@ -1,10 +1,10 @@
 import { protectedProcedure } from "@/server/api/trpc";
-import { students, users } from "@/server/db/schema";
+import { administrators, users } from "@/server/db/schema";
 import { collegeAgent } from "@/server/lib/agents/college";
 import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 
-export const studentProcedure = protectedProcedure.use(
+export const administratorProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
     const {
       session: {
@@ -13,35 +13,36 @@ export const studentProcedure = protectedProcedure.use(
       db,
     } = ctx;
 
-    const student = await collegeAgent.GET("/Individual/{id}/Student", {
-      params: { path: { id } },
-    });
+    const administrator = await collegeAgent.GET(
+      "/Individual/{id}/Administrator",
+      { params: { path: { id } } },
+    );
 
-    if (student.error) {
-      if (student.error.code === "ReferenceNotFound") {
+    if (administrator.error) {
+      if (administrator.error.code === "ReferenceNotFound") {
         await db.update(users).set({ isActive: false }).where(eq(users.id, id));
         await db
-          .update(students)
+          .update(administrators)
           .set({ isActive: false })
-          .where(eq(students.userId, id));
+          .where(eq(administrators.userId, id));
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "This User is not associated with an Individual.",
         });
       }
 
-      if (student.error.code === "NotFound") {
+      if (administrator.error.code === "NotFound") {
         await db
-          .update(students)
+          .update(administrators)
           .set({ isActive: false })
-          .where(eq(students.userId, id));
+          .where(eq(administrators.userId, id));
         throw new TRPCError({
-          message: "This User is not Student.",
+          message: "This User is not Administrator.",
           code: "NOT_FOUND",
         });
       }
 
-      throw student.error;
+      throw administrator.error;
     }
 
     await db
@@ -49,16 +50,19 @@ export const studentProcedure = protectedProcedure.use(
       .set({ isActive: true })
       .where(and(eq(users.id, id), eq(users.isActive, false)));
     await db
-      .insert(students)
+      .insert(administrators)
       .values({ userId: id })
       .onConflictDoUpdate({
-        target: students.userId,
+        target: administrators.userId,
         set: { isActive: true },
-        where: eq(students.isActive, false),
+        where: eq(administrators.isActive, false),
       });
 
     return next({
-      ctx: { ...ctx, session: { ...ctx.session, student: student.data } },
+      ctx: {
+        ...ctx,
+        session: { ...ctx.session, administrator: administrator.data },
+      },
     });
   },
 );

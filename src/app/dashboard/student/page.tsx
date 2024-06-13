@@ -1,8 +1,8 @@
-import { decomposeFullname } from "@/lib/utils";
 import { getSession } from "@/server/auth/session";
 import { Calendar, TrendingUp } from "lucide-react";
 import { redirect } from "next/navigation";
 import { type FC } from "react";
+import StudentEducationalResources from "./_components/educational-resources";
 import Widget from "./_components/widget";
 
 const StudentPage: FC = async () => {
@@ -10,18 +10,12 @@ const StudentPage: FC = async () => {
 
   if (!session) redirect("/dashboard");
 
-  const { fullName } = session.user;
-
-  const greetingNamePart = fullName
-    ? `, ${decomposeFullname(fullName).firstName}`
-    : "";
-
   return (
     <div className="grid grid-rows-[auto_1fr] h-full">
       <h1 className="w-fit items-center border-b-2 text-2xl font-semibold tracking-tight lg:text-3xl">
-        Добро пожаловать{greetingNamePart}
+        Добро пожаловать, {session.user.firstName}
       </h1>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col gap-6">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2">
           <Widget
             title="Расписание"
@@ -36,6 +30,7 @@ const StudentPage: FC = async () => {
             href="/dashboard/student/performance"
           />
         </div>
+        <StudentEducationalResources />
       </div>
     </div>
   );

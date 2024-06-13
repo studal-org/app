@@ -33,9 +33,9 @@ export interface paths {
     /** Read Student by Individual ID */
     get: operations["get-Individual-id-Student"];
   };
-  "/Indivudial/{id}/Administrator": {
+  "/Individual/{id}/Administrator": {
     /** Read Administrator by Individual ID */
-    get: operations["get-Indivudial-id-Administrator"];
+    get: operations["get-Individual-id-Administrator"];
   };
   "/Student/{id}": {
     /** Read Student by ID */
@@ -418,7 +418,7 @@ export interface operations {
     };
   };
   /** Read Administrator by Individual ID */
-  "get-Indivudial-id-Administrator": {
+  "get-Individual-id-Administrator": {
     parameters: {
       path: {
         id: string;

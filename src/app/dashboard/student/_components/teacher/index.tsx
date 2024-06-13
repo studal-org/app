@@ -1,3 +1,4 @@
+import IndividualNameUI from "@/app/dashboard/_components/individual/name";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
@@ -17,20 +18,15 @@ const Teacher: FC<
       {...rest}
     >
       <User className="mr-1 h-3.5 w-3.5" />
-      {individualId ? <IndividualName id={individualId} /> : "Неопределено"}
+      {(individualId ? <IndividualName id={individualId} /> : undefined) ??
+        "Неопределено"}
     </Badge>
   );
 };
 
 const IndividualName: FC<{ id: string }> = ({ id }) => {
-  const [{ fullName, name }] = api.individuals.read.useSuspenseQuery({ id });
-
-  if (name) {
-    const { first, middle, last } = name;
-    return `${last} ${first.at(0)}. ${middle.at(0)}.`;
-  }
-  if (fullName) return fullName;
-  return "Неопределено";
+  const [individual] = api.individuals.read.useSuspenseQuery({ id });
+  return <IndividualNameUI {...individual} />;
 };
 
 export default Teacher;

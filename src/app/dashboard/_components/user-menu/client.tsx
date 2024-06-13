@@ -10,9 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { decomposeFullname } from "@/lib/utils";
 import { type RouterOutputs } from "@/trpc/shared";
 import { Fragment } from "react";
+import { IndividualAbbreviatedNameUI } from "../individual/name";
 import useGroups from "./groups";
 
 const UserMenuOnClient: React.FC<{
@@ -21,7 +21,7 @@ const UserMenuOnClient: React.FC<{
 }> = ({ user }) => {
   const { groups, components } = useGroups();
 
-  const name = user.fullName && decomposeFullname(user.fullName);
+  const { firstName, middleName, lastName } = user;
 
   return (
     <>
@@ -36,9 +36,7 @@ const UserMenuOnClient: React.FC<{
           >
             <Avatar className="h-8 w-8">
               <AvatarFallback>
-                {name
-                  ? name.firstName.charAt(0) + name.lastName.charAt(0)
-                  : user.email.charAt(0)}
+                {[lastName, firstName].map((v) => v.at(0))}
               </AvatarFallback>
             </Avatar>
           </Button>
@@ -47,7 +45,13 @@ const UserMenuOnClient: React.FC<{
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {name ? `${name.firstName} ${name.lastName}` : user.email}
+                <IndividualAbbreviatedNameUI
+                  name={{
+                    first: firstName,
+                    middle: middleName,
+                    last: lastName,
+                  }}
+                />
               </p>
             </div>
           </DropdownMenuLabel>

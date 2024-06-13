@@ -7,6 +7,7 @@ import { collegeAgent } from "@/server/lib/agents/college";
 import { render } from "@react-email/components";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
+import { isValid } from "ulidx";
 import { z } from "zod";
 import { transport } from "../../../email";
 import { createTRPCRouter, publicProcedure } from "../../trpc";
@@ -36,15 +37,32 @@ export const emailRouter = createTRPCRouter({
         });
       }
 
-      const { id: userId, name: _, ...updateData } = individual.data;
+      const { data } = individual;
+
+      if (!data.name)
+        throw new TRPCError({
+          message: "This Individual does not have fullname filled",
+          code: "BAD_REQUEST",
+        });
+
+      const values = {
+        email: data.email,
+        firstName: data.name.first,
+        middleName: data.name.middle,
+        lastName: data.name.last,
+      };
+
       await db
         .insert(users)
-        .values(individual.data)
-        .onConflictDoUpdate({ target: users.id, set: updateData });
+        .values({ id: data.id, ...values })
+        .onConflictDoUpdate({ target: users.id, set: values });
 
       const authLinkInsertResult = await db
         .insert(authLinks)
-        .values({ userId, validUntil: new Date(Date.now() + 1000 * 60 * 30) })
+        .values({
+          userId: data.id,
+          validUntil: new Date(Date.now() + 1000 * 60 * 30),
+        })
         .returning({ authLinkId: authLinks.id });
       const { authLinkId } = authLinkInsertResult[0]!;
 
@@ -63,7 +81,7 @@ export const emailRouter = createTRPCRouter({
       });
     }),
   callback: publicProcedure
-    .input(z.object({ authLinkId: z.string().uuid() }))
+    .input(z.object({ authLinkId: z.string().refine(isValid) }))
     .mutation(async ({ input }) => {
       const authLink = await db.query.authLinks.findFirst({
         where: eq(authLinks.id, input.authLinkId),
