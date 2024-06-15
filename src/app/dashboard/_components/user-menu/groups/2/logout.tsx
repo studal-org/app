@@ -23,6 +23,7 @@ const useLogout = () => {
   const logout = api.auth.logout.useMutation({
     onSuccess() {
       router.push("/");
+      router.refresh();
       setAlertOpen(false);
     },
   });
