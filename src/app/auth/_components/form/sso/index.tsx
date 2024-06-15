@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import ssoAuthProviders, { generateRedirectURL } from "@/server/auth/sso";
+import { type Route } from "next";
 import Link from "next/link";
 import { type FC } from "react";
 
@@ -7,7 +8,7 @@ const SsoMethod: FC = () => {
   return (
     <div className="flex flex-col gap-2">
       {ssoAuthProviders.map(({ id, Icon, title }) => (
-        <Link key={id} href={generateRedirectURL(id)}>
+        <Link key={id} href={generateRedirectURL(id) as Route}>
           <Button variant="outline" className="w-full">
             <Icon className="mr-2 h-4 w-4" /> {title}
           </Button>
