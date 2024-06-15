@@ -7,7 +7,7 @@ const links = [{ href: "https://nv-study.ru", text: "Сайт колледжа" 
 
 const DashboardNavbar: React.FC = () => {
   return (
-    <nav className="flex gap-2 text-muted-foreground items-center">
+    <nav className="flex items-center gap-2 text-muted-foreground">
       <Sheet>
         <SheetTrigger asChild>
           <Button className="md:hidden" size="icon" variant="ghost">
@@ -18,7 +18,7 @@ const DashboardNavbar: React.FC = () => {
           {links.map(({ href, text }) => (
             <Button key={href} asChild variant="link" size="sm">
               <Link href={href}>
-                {text} <ExternalLink className="w-4 h-4 ml-1" />
+                {text} <ExternalLink className="ml-1 h-4 w-4" />
               </Link>
             </Button>
           ))}
@@ -26,15 +26,15 @@ const DashboardNavbar: React.FC = () => {
       </Sheet>
       <Button asChild size="sm">
         <Link href="/dashboard/student">
-          <Home className="h-4 w-4 mr-2" />
+          <Home className="mr-2 h-4 w-4" />
           Студал
         </Link>
       </Button>
-      <div className="gap-2 hidden md:flex items-center">
+      <div className="hidden items-center gap-2 md:flex">
         {links.map(({ href, text }) => (
           <Button key={href} asChild variant="link" size="sm">
             <Link href={href}>
-              {text} <ExternalLink className="w-4 h-4 ml-1" />
+              {text} <ExternalLink className="ml-1 h-4 w-4" />
             </Link>
           </Button>
         ))}

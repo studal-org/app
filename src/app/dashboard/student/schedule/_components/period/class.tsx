@@ -17,14 +17,14 @@ const PeriodClass: FC<
     periodClass;
 
   return (
-    <Card className={cn("bg-card/40 flex flex-col", className)} {...props}>
+    <Card className={cn("flex flex-col bg-card/40", className)} {...props}>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg font-medium text-foreground/85">
           <Discipline discipline={discipline} />
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex gap-1 flex-wrap">
+        <div className="flex flex-wrap gap-1">
           {subgroup !== null && subgroup > 0 && (
             <Subgroup subgroup={subgroup} />
           )}
@@ -41,7 +41,7 @@ export const PeriodClassEmpty: FC<ComponentProps<typeof Card>> = ({
   className,
   ...props
 }) => (
-  <Card className={cn("bg-card/40 flex flex-col", className)} {...props}>
+  <Card className={cn("flex flex-col bg-card/40", className)} {...props}>
     <CardHeader className="pb-2">
       <CardTitle className="text-lg font-medium text-foreground/50">
         Пусто

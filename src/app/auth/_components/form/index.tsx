@@ -12,7 +12,7 @@ const AuthForm: FC = () => {
         <div className="grow">
           <Separator />
         </div>
-        <span className="text-muted-foreground text-xs uppercase">
+        <span className="text-xs uppercase text-muted-foreground">
           Или войти через
         </span>
         <div className="grow">

@@ -8,7 +8,7 @@ export const Body: FC<ComponentProps<typeof ReactEmailBody>> = ({
 }) => (
   <ReactEmailBody
     className={cn(
-      "bg-background m-0 text-foreground h-screen w-screen",
+      "m-0 h-screen w-screen bg-background text-foreground",
       className,
     )}
     {...props}

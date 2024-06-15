@@ -14,7 +14,7 @@ const Period: FC<{
 }> = ({ periodNumber, periodSchedule, classes }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-base font-medium uppercase text-foreground/75 flex justify-between">
+      <div className="flex justify-between text-base font-medium uppercase text-foreground/75">
         <div>{periodNumber} урок</div>
         <div>
           <PeriodTimespan periodSchedule={periodSchedule} />
@@ -39,7 +39,7 @@ const Period: FC<{
                     {[...Array(diff - 1).keys()].map((key) => (
                       <PeriodClassEmpty
                         key={key}
-                        className="flex-grow basis-0 min-w-60"
+                        className="min-w-60 flex-grow basis-0"
                       />
                     ))}
                   </>
@@ -48,7 +48,7 @@ const Period: FC<{
               <PeriodClass
                 periodClass={periodClass}
                 className={cn(
-                  "flex-grow basis-0 min-w-60",
+                  "min-w-60 flex-grow basis-0",
                   periodClass.subgroup <= 0 && "basis-full",
                   periodClass.subgroup <= 0 && array[i + 1] && "mb-4",
                 )}

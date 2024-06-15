@@ -128,7 +128,7 @@ const CommandItem = React.forwardRef<
 CommandItem.displayName = CommandPrimitive.Item.displayName;
 
 const CommandItemLoading: React.FC = () => (
-  <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm outline-none whitespace-pre">
+  <div className="cursor-default select-none whitespace-pre rounded-sm px-2 py-1.5 text-sm outline-none">
     <Skeleton>{" ".repeat(50)}</Skeleton>
   </div>
 );

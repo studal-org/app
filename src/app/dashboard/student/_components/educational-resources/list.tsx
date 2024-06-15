@@ -5,7 +5,7 @@ import { Suspense, type FC } from "react";
 const EducationalResourcesList: FC = () => {
   return (
     <Suspense fallback={"loading..."}>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2">
+      <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
         <EducationalResourcesListContent />
       </div>
     </Suspense>

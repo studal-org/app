@@ -4,11 +4,11 @@ import config from "./config";
 
 const DashboardProfileLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="grid grid-rows-[auto_1fr] h-full">
+    <div className="grid h-full grid-rows-[auto_1fr]">
       <h1 className="w-fit items-center border-b-2 text-2xl font-semibold tracking-tight lg:text-3xl">
         Профиль
       </h1>
-      <div className="mt-4 grid md:grid-cols-[1fr_4fr] gap-8">
+      <div className="mt-4 grid gap-8 md:grid-cols-[1fr_4fr]">
         <div className="flex flex-col gap-0.5">
           {config.map(({ id, title, Icon }) => (
             <DashboardProfileSidebarItem
@@ -16,7 +16,7 @@ const DashboardProfileLayout: FC<{ children: ReactNode }> = ({ children }) => {
               dashboardProfileSidebarItem={{
                 id,
                 title,
-                icon: <Icon className="h-4 w-4 mr-2" />,
+                icon: <Icon className="mr-2 h-4 w-4" />,
               }}
             />
           ))}

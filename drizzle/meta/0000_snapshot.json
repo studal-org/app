@@ -48,12 +48,8 @@
           "name": "studal_auth_links_user_id_studal_users_id_fk",
           "tableFrom": "studal_auth_links",
           "tableTo": "studal_users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -103,12 +99,8 @@
           "name": "studal_sessions_sub_studal_users_id_fk",
           "tableFrom": "studal_sessions",
           "tableTo": "studal_users",
-          "columnsFrom": [
-            "sub"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["sub"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -146,9 +138,7 @@
         "studal_users_email_unique": {
           "name": "studal_users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       }
     }

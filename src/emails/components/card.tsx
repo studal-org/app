@@ -15,7 +15,7 @@ export const Card: FC<ComponentProps<typeof Container>> = ({
 }) => (
   <Container
     className={cn(
-      "rounded-lg border border-solid bg-card text-card-foreground shadow-sm border-border",
+      "rounded-lg border border-solid border-border bg-card text-card-foreground shadow-sm",
       className,
     )}
     {...props}
@@ -40,7 +40,7 @@ export const CardTitle: FC<ComponentProps<typeof Heading>> = ({
 }) => (
   <Heading
     className={cn(
-      "text-2xl font-semibold leading-none m-0 tracking-tight",
+      "m-0 text-2xl font-semibold leading-none tracking-tight",
       className,
     )}
     {...props}
@@ -52,7 +52,7 @@ export const CardDescription: FC<ComponentProps<typeof Text>> = ({
   ...props
 }) => (
   <Text
-    className={cn("text-sm text-muted-foreground m-0", className)}
+    className={cn("m-0 text-sm text-muted-foreground", className)}
     {...props}
   />
 );

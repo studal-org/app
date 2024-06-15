@@ -11,9 +11,9 @@ const Widget: FC<{
 }> = ({ title, content, Icon, href }) => {
   const icon = <Icon />;
   return (
-    <div className="pt-4 relative group">
+    <div className="group relative pt-4">
       <Link href={href} className="peer h-full">
-        <Card className="bg-card/40 h-full">
+        <Card className="h-full bg-card/40">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">{title}</CardTitle>
           </CardHeader>
@@ -27,7 +27,7 @@ const Widget: FC<{
       </Link>
       <Link
         href={href}
-        className="absolute top-0 right-0 peer-hover:mt-0 mt-7 hover:mt-0 transition-all mr-3 bg-card/40 p-3 rounded-lg border"
+        className="absolute right-0 top-0 mr-3 mt-7 rounded-lg border bg-card/40 p-3 transition-all hover:mt-0 peer-hover:mt-0"
       >
         {icon}
       </Link>

@@ -10,7 +10,7 @@ const DashboardLayout: FC<{ children: ReactNode }> = async ({ children }) => {
   const session = await getSession();
   if (!session) redirect("/auth");
   return (
-    <div className="min-h-full max-h-full grid grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
+    <div className="grid max-h-full min-h-full grid-rows-[auto_1fr] bg-gradient-to-br from-primary/5 to-primary/20">
       <DashboardHeader>
         <DashboardNavbar />
         <Suspense fallback={<UserMenuLoading />}>

@@ -35,18 +35,18 @@ const ProfileSsoProviderAccountActions: FC<{
           {isPendingMakePrimary && (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           )}
-          <Tag className="w-4 h-4 mr-2" /> Сделать основным
+          <Tag className="mr-2 h-4 w-4" /> Сделать основным
         </Button>
       )}
       <Button
         disabled={isPending}
         variant="secondary"
         size="sm"
-        className="text-destructive w-full"
+        className="w-full text-destructive"
         onClick={() => mutateUnlink({ provider, id })}
       >
         {isPendingUnlink && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        <Trash className="w-4 h-4 mr-2" /> Отвязать
+        <Trash className="mr-2 h-4 w-4" /> Отвязать
       </Button>
     </>
   );

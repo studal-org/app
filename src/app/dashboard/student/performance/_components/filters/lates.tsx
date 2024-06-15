@@ -25,7 +25,7 @@ const LatesFilter: FC<HTMLAttributes<HTMLDivElement>> = ({
 
   return (
     <div
-      className={cn("flex items-center space-x-2 h-10", className)}
+      className={cn("flex h-10 items-center space-x-2", className)}
       {...props}
     >
       <Checkbox

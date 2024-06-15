@@ -23,7 +23,7 @@ const DashboardProfileSidebarItem: FC<{
       <Button
         variant="ghost"
         className={cn(
-          "justify-start w-full",
+          "w-full justify-start",
           pathname === href
             ? "bg-muted hover:bg-muted"
             : "hover:bg-transparent hover:underline",

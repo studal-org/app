@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <main className="flex h-screen flex-col items-center bg-gradient-to-br from-primary/5 to-primary/20 justify-center gap-4">
+    <main className="flex h-screen flex-col items-center justify-center gap-4 bg-gradient-to-br from-primary/5 to-primary/20">
       <div className="flex flex-col gap-2 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
           Студал
@@ -15,7 +15,7 @@ export default async function Home() {
       </div>
       <Link href="/dashboard">
         <Button>
-          <LogIn className="mr-2 w-4 h-4" /> Перейти
+          <LogIn className="mr-2 h-4 w-4" /> Перейти
         </Button>
       </Link>
     </main>

@@ -10,7 +10,7 @@ import { PerformanceElementGroupLoading } from "./performance-element/group";
 
 const PerformanceTabsContents: FC = () => {
   return (
-    <div className="flex flex-col gap-4 mt-8">
+    <div className="mt-8 flex flex-col gap-4">
       <Suspense fallback={<PerformanceTabsContentsContentLoading />}>
         <PerformanceTabsContentsContent />
       </Suspense>

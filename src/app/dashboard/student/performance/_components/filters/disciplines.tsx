@@ -69,10 +69,10 @@ const DisciplinesFilter: FC<ComponentProps<typeof Popover>> = (props) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="justify-between w-full"
+            className="w-full justify-between"
           >
             <div className="flex items-center">
-              <DisciplinesIcon className="w-4 h-4 mr-2" />
+              <DisciplinesIcon className="mr-2 h-4 w-4" />
               {selected.size ? `Дисциплин: ${selected.size}` : "Дисциплины"}
             </div>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

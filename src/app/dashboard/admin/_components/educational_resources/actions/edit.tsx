@@ -31,7 +31,7 @@ export const EducationalResourcesEdit: FC<
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button {...props} variant="secondary" size="sm">
-          <Pencil className="h-4 w-4 mr-2" /> Редактировать
+          <Pencil className="mr-2 h-4 w-4" /> Редактировать
         </Button>
       </DialogTrigger>
       <DialogContent>

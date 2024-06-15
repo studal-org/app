@@ -15,7 +15,7 @@ const PerformanceElement: FC<
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-0.5">
         {title}
-        <div className="flex gap-1 flex-wrap">
+        <div className="flex flex-wrap gap-1">
           {controlTypeId && <ControlType controlType={{ id: controlTypeId }} />}
           {workTypeId && <WorkType workType={{ id: workTypeId }} />}
           {isAttended === false && (
@@ -32,7 +32,7 @@ const PerformanceElement: FC<
           )}
         </div>
       </div>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex flex-wrap gap-2">
         {marks.map((mark) => (
           <Mark key={mark.number} {...mark} />
         ))}

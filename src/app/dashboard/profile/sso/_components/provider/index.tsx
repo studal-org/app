@@ -25,16 +25,16 @@ const ProfileSsoProvider: FC<
   ...props
 }) => (
   <div
-    className={cn("flex-col lg:flex-row lg:item-center flex gap-2", className)}
+    className={cn("lg:item-center flex flex-col gap-2 lg:flex-row", className)}
     {...props}
   >
-    <div className="flex items-center grow flex-row bg-background/40 p-2.5 rounded-md">
-      <div className="flex gap-2 px-3 items-center">
-        <Icon className="w-5 h-5" />
+    <div className="flex grow flex-row items-center rounded-md bg-background/40 p-2.5">
+      <div className="flex items-center gap-2 px-3">
+        <Icon className="h-5 w-5" />
         <div className="hidden lg:block">{title}</div>
       </div>
       {account && (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Avatar className="h-5 w-5">
             <AvatarImage src={account.image} alt={account.title} />
             <AvatarFallback>{account.title.at(0) ?? ""}</AvatarFallback>
@@ -42,14 +42,14 @@ const ProfileSsoProvider: FC<
           <div>{account.title}</div>
           {account.isPrimary && (
             <Badge>
-              <Tag className="lg:mr-1 h-3.5 w-3.5" />
+              <Tag className="h-3.5 w-3.5 lg:mr-1" />
               <div className="hidden lg:block">Основной</div>
             </Badge>
           )}
         </div>
       )}
     </div>
-    <div className="flex lg:flex-col justify-center gap-2">
+    <div className="flex justify-center gap-2 lg:flex-col">
       {account ? (
         <ProfileSsoProviderAccountActions
           profileSsoProviderAccountActions={account}
@@ -57,7 +57,7 @@ const ProfileSsoProvider: FC<
       ) : (
         <Link href={`/dashboard/profile/sso/${id}/redirect`} className="w-full">
           <Button size="sm" className="w-full">
-            <LinkIcon className="w-4 h-4 mr-2" /> Связать
+            <LinkIcon className="mr-2 h-4 w-4" /> Связать
           </Button>
         </Link>
       )}

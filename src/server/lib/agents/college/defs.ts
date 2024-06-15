@@ -3,7 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
   "/ScheduleForDate/{id}": {
     /** Read ScheduleForDate by ID for groupId */
@@ -81,12 +80,12 @@ export interface components {
       groupId: string | null;
       subgroup: number | null;
       periodNumber: number | null;
-      discipline: ({
+      discipline: {
         /** @enum {string} */
         objectType: "discipline" | "practiceKind";
         /** Format: uuid */
         objectId: string;
-      }) | null;
+      } | null;
       teacherId: string | null;
       classroomId: string | null;
       workTypeId: string | null;
@@ -126,11 +125,11 @@ export interface components {
       /** Format: uuid */
       id: string;
       name: string;
-      schedule: ({
-          periodNumber: number | null;
-          startTime: string | null;
-          endTime: string | null;
-        })[];
+      schedule: {
+        periodNumber: number | null;
+        startTime: string | null;
+        endTime: string | null;
+      }[];
     };
     /** Individual */
     Individual: {
@@ -178,21 +177,30 @@ export interface components {
       groupId: string | null;
     };
     /** Mark */
-    Mark: {
-      number: number;
-      mark: number;
-      /** Format: uuid */
-      controlTypeId: string;
-    } | {
-      number: number;
-      isPassed: boolean;
-      /** Format: uuid */
-      controlTypeId: string;
-    };
+    Mark:
+      | {
+          number: number;
+          mark: number;
+          /** Format: uuid */
+          controlTypeId: string;
+        }
+      | {
+          number: number;
+          isPassed: boolean;
+          /** Format: uuid */
+          controlTypeId: string;
+        };
     /** StudentPerformance */
     StudentPerformance: {
       /** @enum {string} */
-      objectType: "statement" | "retakeReferral" | "stateCertificationBoardProtocol" | "practiceReport" | "incomingAcademicCertificate" | "additionalClass" | "class";
+      objectType:
+        | "statement"
+        | "retakeReferral"
+        | "stateCertificationBoardProtocol"
+        | "practiceReport"
+        | "incomingAcademicCertificate"
+        | "additionalClass"
+        | "class";
       /** Format: uuid */
       objectId: string;
       /** Format: date-time */
@@ -264,7 +272,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   /** Read ScheduleForDate by ID for groupId */
   "get-ScheduleForDate-ForGroupId": {
     parameters: {
@@ -313,7 +320,9 @@ export interface operations {
       /** @description Not Found */
       404: {
         content: {
-          "application/json": components["schemas"]["ReferenceNotFound"] | components["schemas"]["NotFound"];
+          "application/json":
+            | components["schemas"]["ReferenceNotFound"]
+            | components["schemas"]["NotFound"];
         };
       };
     };
@@ -412,7 +421,9 @@ export interface operations {
       /** @description Not Found */
       404: {
         content: {
-          "application/json": components["schemas"]["ReferenceNotFound"] | components["schemas"]["NotFound"];
+          "application/json":
+            | components["schemas"]["ReferenceNotFound"]
+            | components["schemas"]["NotFound"];
         };
       };
     };
@@ -434,7 +445,9 @@ export interface operations {
       /** @description Not Found */
       404: {
         content: {
-          "application/json": components["schemas"]["ReferenceNotFound"] | components["schemas"]["NotFound"];
+          "application/json":
+            | components["schemas"]["ReferenceNotFound"]
+            | components["schemas"]["NotFound"];
         };
       };
     };

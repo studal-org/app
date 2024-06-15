@@ -21,9 +21,9 @@ const PerformanceTabs: FC<ComponentProps<typeof Tabs>> = (props) => {
       onValueChange={(v) => setBy(v as "date" | "discipline")}
       {...props}
     >
-      <div className="flex gap-y-1 gap-x-2 justify-between flex-col sm:flex-row">
-        <div className="flex gap-y-1 gap-x-2 flex-col sm:flex-row">
-          <TabsList className="grid w-full sm:w-fit grid-cols-2">
+      <div className="flex flex-col justify-between gap-x-2 gap-y-1 sm:flex-row">
+        <div className="flex flex-col gap-x-2 gap-y-1 sm:flex-row">
+          <TabsList className="grid w-full grid-cols-2 sm:w-fit">
             <TabsTrigger value="date">По дате</TabsTrigger>
             <TabsTrigger value="discipline">По дисциплине</TabsTrigger>
           </TabsList>

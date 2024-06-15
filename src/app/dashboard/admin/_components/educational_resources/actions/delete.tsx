@@ -58,7 +58,7 @@ const EducationalResourcesDelete: FC<
           size="sm"
           {...props}
         >
-          <Trash2 className="h-4 w-4 mr-2" /> Удалить
+          <Trash2 className="mr-2 h-4 w-4" /> Удалить
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

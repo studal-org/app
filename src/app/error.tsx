@@ -8,7 +8,7 @@ const Error: FC<{
   reset: () => void;
 }> = ({ reset }) => {
   return (
-    <div className="bg-secondary h-full flex-col flex items-center justify-center gap-4 p-5 rounded-md border">
+    <div className="flex h-full flex-col items-center justify-center gap-4 rounded-md border bg-secondary p-5">
       <div className="text-2xl font-medium">
         Произошла непредвиденная ошибка
       </div>

@@ -11,12 +11,12 @@ const StudentPage: FC = async () => {
   if (!session) redirect("/dashboard");
 
   return (
-    <div className="grid grid-rows-[auto_1fr] h-full">
+    <div className="grid h-full grid-rows-[auto_1fr]">
       <h1 className="w-fit items-center border-b-2 text-2xl font-semibold tracking-tight lg:text-3xl">
         Добро пожаловать, {session.user.firstName}
       </h1>
       <div className="mt-4 flex flex-col gap-6">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2">
+        <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
           <Widget
             title="Расписание"
             content={{ text: "-", description: "уроков сегодня" }}

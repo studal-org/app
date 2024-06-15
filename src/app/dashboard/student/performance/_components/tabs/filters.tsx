@@ -76,7 +76,7 @@ const title = "Фильтры";
 
 const Trigger: FC<ComponentProps<typeof Button>> = (props) => (
   <Button size="sm" variant="outline" {...props}>
-    <Filter className="w-4 h-4 mr-2" /> {title}
+    <Filter className="mr-2 h-4 w-4" /> {title}
   </Button>
 );
 

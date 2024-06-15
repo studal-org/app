@@ -8,7 +8,7 @@ const DashboardHeader: FC<HTMLProps<HTMLElement>> = ({
 }) => {
   return (
     <header
-      className={cn("border-b backdrop-blur-3xl bg-background/40", className)}
+      className={cn("border-b bg-background/40 backdrop-blur-3xl", className)}
       {...props}
     >
       <div className="container flex h-16 items-center justify-between">

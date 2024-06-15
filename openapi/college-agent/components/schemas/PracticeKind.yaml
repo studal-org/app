@@ -7,9 +7,9 @@ properties:
   practiceType:
     anyOf:
       - enum:
-        - educational
-        - internship
-        - undergraduate
+          - educational
+          - internship
+          - undergraduate
       - type: "null"
   title:
     type: string
