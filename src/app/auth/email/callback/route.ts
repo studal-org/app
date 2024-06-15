@@ -10,6 +10,7 @@ export const GET = async (req: NextRequest) => {
   if (!authLinkId) {
     redirect("/auth");
   }
+  console.log({ authLinkId });
   try {
     await api.auth.email.callback({ authLinkId });
   } catch (error) {

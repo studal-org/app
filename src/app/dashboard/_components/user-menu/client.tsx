@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,6 +35,7 @@ const UserMenuOnClient: React.FC<{
             className="relative h-8 w-8 rounded-full text-foreground"
           >
             <Avatar className="h-8 w-8">
+              <AvatarImage src={user.image ? user.image : undefined} />
               <AvatarFallback>
                 {[lastName, firstName].map((v) => v.at(0))}
               </AvatarFallback>

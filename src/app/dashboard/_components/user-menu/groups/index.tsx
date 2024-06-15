@@ -1,9 +1,10 @@
 "use client";
 
 import group1Hooks from "./1";
+import group2Hooks from "./2";
 
 const useGroups = () => {
-  const groupsHooks = [group1Hooks];
+  const groupsHooks = [group1Hooks, group2Hooks];
 
   const groupsFeatures: {
     item: JSX.Element;

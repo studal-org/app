@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import * as jose from "jose";
+import { type ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 
 export type TokenPayload = {
@@ -47,10 +48,12 @@ const transformIncomingPayload = (
 export const sessionTokenController = {
   alg: "HS256" as const,
   tokenName: "session" as const,
-  generateCookieOptions: (exp: Date) => ({
+  generateCookieOptions: (exp: Date): Partial<ResponseCookie> => ({
     expires: exp,
+    secure: env.APP_PROTOCOL === "https" ? true : false,
+    sameSite: env.NODE_ENV === "production" ? "strict" : "lax",
+    domain: env.APP_DOMAIN,
     httpOnly: true,
-    // secure: true,
   }),
   newToken({ sub, iat, nbf, exp, jti }: TokenPayload) {
     return new jose.SignJWT()
@@ -64,6 +67,7 @@ export const sessionTokenController = {
 
   async set(payload: TokenPayload) {
     const token = await this.newToken(payload).sign(env.SESSION_SECRET);
+    console.log(this.generateCookieOptions(payload.exp));
     cookies().set(
       this.tokenName,
       token,

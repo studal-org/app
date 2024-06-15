@@ -2,7 +2,7 @@ import { type FC } from "react";
 
 import { Separator } from "@/components/ui/separator";
 import EmailMethod from "./email";
-import OauthMethod from "./oauth";
+import SsoMethod from "./sso";
 
 const AuthForm: FC = () => {
   return (
@@ -19,7 +19,7 @@ const AuthForm: FC = () => {
           <Separator />
         </div>
       </div>
-      <OauthMethod />
+      <SsoMethod />
     </div>
   );
 };
