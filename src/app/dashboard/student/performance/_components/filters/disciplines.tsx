@@ -25,6 +25,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import {
   Fragment,
   Suspense,
+  useMemo,
   useRef,
   useState,
   type ComponentProps,
@@ -126,10 +127,18 @@ const DisciplinesFilterContent: FC = () => {
     ].map((id) => t.practiceKinds.read({ id }, { staleTime: Infinity })),
   );
 
-  const groups = [
-    { title: "Дисциплины", id: "discipline", items: disciplines } as const,
-    { title: "Практики", id: "practiceKind", items: practiceKinds } as const,
-  ] as const;
+  const groups = useMemo(
+    () =>
+      [
+        { title: "Дисциплины", id: "discipline", items: disciplines } as const,
+        {
+          title: "Практики",
+          id: "practiceKind",
+          items: practiceKinds,
+        } as const,
+      ] as const,
+    [disciplines, practiceKinds],
+  );
 
   const [selected, setSelected] = useAtom(selectedDisciplinesAtom);
 

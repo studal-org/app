@@ -1,7 +1,7 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { api } from "@/trpc/react";
 import { useAtom } from "jotai";
-import { Suspense, type FC } from "react";
+import { Suspense, useMemo, type FC } from "react";
 import { usePeriod } from "../../../_hooks/period";
 import { performanceFiltersAtom } from "../../filters";
 import PerformanceByDate from "./date";
@@ -26,14 +26,19 @@ const PerformanceTabsContentsContent: FC = () => {
 
   const [filters] = useAtom(performanceFiltersAtom);
 
-  const filtered = performance
-    .filter((item) =>
-      [...filters].every(([_, { predicate }]) => predicate(item)),
-    )
-    .toSorted(
-      ({ date: a }, { date: b }) =>
-        new Date(b).getTime() - new Date(a).getTime(),
-    );
+  const filtered = useMemo(
+    () =>
+      performance
+        .filter((item) =>
+          [...filters].every(([_, { predicate }]) => predicate(item)),
+        )
+        .toSorted(
+          ({ date: a }, { date: b }) =>
+            new Date(b).getTime() - new Date(a).getTime(),
+        ),
+    [performance, filters],
+  );
+
   return (
     <>
       <TabsContent value="date" asChild>

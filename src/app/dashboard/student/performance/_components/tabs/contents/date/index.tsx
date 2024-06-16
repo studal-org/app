@@ -1,6 +1,7 @@
+import NotFound from "@/components/not-found";
 import { type components } from "@/server/lib/agents/college/defs";
 import { format } from "date-fns";
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 import Discipline from "../../../../../_components/discipline";
 import PerformanceElement from "../performance-element";
 import {
@@ -13,7 +14,7 @@ import {
 const PerformanceByDate: FC<{
   performance: components["schemas"]["StudentPerformance"][];
 }> = ({ performance }) => {
-  const performanceByDate = performance.reduce((acc, v) => {
+  const _performanceByDate = performance.reduce((acc, v) => {
     const date = new Date(v.date);
     const dateKey = date.getTime();
     const forDate = acc.get(dateKey);
@@ -22,9 +23,16 @@ const PerformanceByDate: FC<{
     return acc;
   }, new Map<number, { date: Date; performanceForDate: components["schemas"]["StudentPerformance"][] }>());
 
+  const performanceByDate = useMemo(
+    () => [..._performanceByDate],
+    [_performanceByDate],
+  );
+
+  if (!performanceByDate.length) return <NotFound />;
+
   return (
     <>
-      {[...performanceByDate].map(([dateKey, { date, performanceForDate }]) => (
+      {performanceByDate.map(([dateKey, { date, performanceForDate }]) => (
         <PerformanceElementGroup key={dateKey}>
           <PerformanceElementGroupHeader>
             <PerformanceElementGroupTitle>
