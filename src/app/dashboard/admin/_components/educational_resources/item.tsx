@@ -1,6 +1,7 @@
 import Widget from "@/app/dashboard/student/_components/widget";
 import { type RouterOutputs } from "@/trpc/shared";
 import { Info } from "lucide-react";
+import { type Route } from "next";
 import { type FC } from "react";
 
 const EducationalResourceUI: FC<{
@@ -10,7 +11,7 @@ const EducationalResourceUI: FC<{
     <Widget
       title={title}
       Icon={Info}
-      href={href}
+      href={href as Route}
       content={{ description: buttonText, text: "" }}
     />
   );

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ExternalLink, Home, Menu } from "lucide-react";
+import { type Route } from "next";
 import Link from "next/link";
 
 const links = [{ href: "https://nv-study.ru", text: "Сайт колледжа" }];
@@ -17,7 +18,7 @@ const DashboardNavbar: React.FC = () => {
         <SheetContent side="left">
           {links.map(({ href, text }) => (
             <Button key={href} asChild variant="link" size="sm">
-              <Link href={href}>
+              <Link href={href as Route}>
                 {text} <ExternalLink className="ml-1 h-4 w-4" />
               </Link>
             </Button>
@@ -33,7 +34,7 @@ const DashboardNavbar: React.FC = () => {
       <div className="hidden items-center gap-2 md:flex">
         {links.map(({ href, text }) => (
           <Button key={href} asChild variant="link" size="sm">
-            <Link href={href}>
+            <Link href={href as Route}>
               {text} <ExternalLink className="ml-1 h-4 w-4" />
             </Link>
           </Button>

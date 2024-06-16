@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type LucideIcon } from "lucide-react";
+import { type Route } from "next";
 import Link from "next/link";
 import { type FC, type ReactNode } from "react";
 
@@ -7,7 +8,7 @@ const Widget: FC<{
   title: string;
   content: { text: ReactNode; description: ReactNode };
   Icon: LucideIcon;
-  href: string;
+  href: Route;
 }> = ({ title, content, Icon, href }) => {
   const icon = <Icon />;
   return (
