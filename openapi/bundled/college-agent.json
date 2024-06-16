@@ -676,6 +676,65 @@
           }
         }
       }
+    },
+    "/Groups": {
+      "get": {
+        "summary": "List Group by ID",
+        "operationId": "list-Group-id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Groups/{id}": {
+      "get": {
+        "summary": "Read Group by ID",
+        "operationId": "get-Group-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -732,14 +791,20 @@
                 "properties": {
                   "objectType": {
                     "type": "string",
-                    "enum": ["discipline", "practiceKind"]
+                    "enum": [
+                      "discipline",
+                      "practiceKind"
+                    ]
                   },
                   "objectId": {
                     "type": "string",
                     "format": "uuid"
                   }
                 },
-                "required": ["objectType", "objectId"]
+                "required": [
+                  "objectType",
+                  "objectId"
+                ]
               },
               {
                 "type": "null"
@@ -828,7 +893,12 @@
             }
           }
         },
-        "required": ["id", "scheduleDate", "periodScheduleId", "schedule"]
+        "required": [
+          "id",
+          "scheduleDate",
+          "periodScheduleId",
+          "schedule"
+        ]
       },
       "ReferenceNotFound": {
         "type": "object",
@@ -845,7 +915,11 @@
             "type": "string"
           }
         },
-        "required": ["code", "message", "referenceType"]
+        "required": [
+          "code",
+          "message",
+          "referenceType"
+        ]
       },
       "ScheduleForDate_ByScheduleDate": {
         "type": "object",
@@ -877,7 +951,12 @@
             }
           }
         },
-        "required": ["id", "scheduleDate", "periodScheduleId", "schedule"]
+        "required": [
+          "id",
+          "scheduleDate",
+          "periodScheduleId",
+          "schedule"
+        ]
       },
       "NotFound": {
         "type": "object",
@@ -891,7 +970,10 @@
             "type": "string"
           }
         },
-        "required": ["code", "message"]
+        "required": [
+          "code",
+          "message"
+        ]
       },
       "PeriodsSchedule": {
         "type": "object",
@@ -942,11 +1024,19 @@
                   ]
                 }
               },
-              "required": ["periodNumber", "startTime", "endTime"]
+              "required": [
+                "periodNumber",
+                "startTime",
+                "endTime"
+              ]
             }
           }
         },
-        "required": ["id", "name", "schedule"]
+        "required": [
+          "id",
+          "name",
+          "schedule"
+        ]
       },
       "Individual": {
         "type": "object",
@@ -998,7 +1088,11 @@
                     "type": "string"
                   }
                 },
-                "required": ["first", "middle", "last"]
+                "required": [
+                  "first",
+                  "middle",
+                  "last"
+                ]
               },
               {
                 "type": "null"
@@ -1006,7 +1100,12 @@
             ]
           }
         },
-        "required": ["id", "fullName", "email", "name"]
+        "required": [
+          "id",
+          "fullName",
+          "email",
+          "name"
+        ]
       },
       "Individual_ByEmail": {
         "type": "object",
@@ -1044,7 +1143,11 @@
                     "type": "string"
                   }
                 },
-                "required": ["first", "middle", "last"]
+                "required": [
+                  "first",
+                  "middle",
+                  "last"
+                ]
               },
               {
                 "type": "null"
@@ -1052,7 +1155,12 @@
             ]
           }
         },
-        "required": ["id", "fullName", "email", "name"]
+        "required": [
+          "id",
+          "fullName",
+          "email",
+          "name"
+        ]
       },
       "Student_ByIndividual": {
         "type": "object",
@@ -1078,7 +1186,11 @@
             ]
           }
         },
-        "required": ["id", "individualId", "groupId"]
+        "required": [
+          "id",
+          "individualId",
+          "groupId"
+        ]
       },
       "Administrator_ByIndividual": {
         "type": "object",
@@ -1093,7 +1205,10 @@
             "format": "uuid"
           }
         },
-        "required": ["id", "individualId"]
+        "required": [
+          "id",
+          "individualId"
+        ]
       },
       "Student": {
         "type": "object",
@@ -1126,7 +1241,11 @@
             ]
           }
         },
-        "required": ["id", "individualId", "groupId"]
+        "required": [
+          "id",
+          "individualId",
+          "groupId"
+        ]
       },
       "Mark": {
         "title": "Mark",
@@ -1145,7 +1264,11 @@
                 "format": "uuid"
               }
             },
-            "required": ["number", "mark", "controlTypeId"]
+            "required": [
+              "number",
+              "mark",
+              "controlTypeId"
+            ]
           },
           {
             "type": "object",
@@ -1161,7 +1284,11 @@
                 "format": "uuid"
               }
             },
-            "required": ["number", "isPassed", "controlTypeId"]
+            "required": [
+              "number",
+              "isPassed",
+              "controlTypeId"
+            ]
           }
         ]
       },
@@ -1194,14 +1321,20 @@
             "properties": {
               "objectType": {
                 "type": "string",
-                "enum": ["discipline", "practiceKind"]
+                "enum": [
+                  "discipline",
+                  "practiceKind"
+                ]
               },
               "objectId": {
                 "type": "string",
                 "format": "uuid"
               }
             },
-            "required": ["objectType", "objectId"]
+            "required": [
+              "objectType",
+              "objectId"
+            ]
           },
           "workTypeId": {
             "anyOf": [
@@ -1289,7 +1422,12 @@
             ]
           }
         },
-        "required": ["id", "title", "shortTitle", "fullTitle"]
+        "required": [
+          "id",
+          "title",
+          "shortTitle",
+          "fullTitle"
+        ]
       },
       "PracticeKind": {
         "type": "object",
@@ -1302,7 +1440,11 @@
           "practiceType": {
             "anyOf": [
               {
-                "enum": ["educational", "internship", "undergraduate"]
+                "enum": [
+                  "educational",
+                  "internship",
+                  "undergraduate"
+                ]
               },
               {
                 "type": "null"
@@ -1326,7 +1468,13 @@
             ]
           }
         },
-        "required": ["id", "practiceType", "title", "shortTitle", "fullTitle"]
+        "required": [
+          "id",
+          "practiceType",
+          "title",
+          "shortTitle",
+          "fullTitle"
+        ]
       },
       "ControlType": {
         "type": "object",
@@ -1351,7 +1499,11 @@
             ]
           }
         },
-        "required": ["id", "title", "markTypeId"]
+        "required": [
+          "id",
+          "title",
+          "markTypeId"
+        ]
       },
       "WorkType": {
         "type": "object",
@@ -1365,7 +1517,10 @@
             "type": "string"
           }
         },
-        "required": ["id", "title"]
+        "required": [
+          "id",
+          "title"
+        ]
       },
       "Classroom": {
         "type": "object",
@@ -1381,7 +1536,11 @@
             "type": "number"
           }
         },
-        "required": ["id", "title", "number"]
+        "required": [
+          "id",
+          "title",
+          "number"
+        ]
       },
       "Employee": {
         "type": "object",
@@ -1403,7 +1562,27 @@
             ]
           }
         },
-        "required": ["id", "individualId"]
+        "required": [
+          "id",
+          "individualId"
+        ]
+      },
+      "Group": {
+        "type": "object",
+        "title": "Group",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
       }
     }
   }

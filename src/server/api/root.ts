@@ -1,4 +1,5 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { groupsRouter } from "./groups";
 import { authRouter } from "./routers/auth";
 import { classroomsRouter } from "./routers/classrooms";
 import { controlTypesRouter } from "./routers/control-types";
@@ -30,6 +31,7 @@ export const appRouter = createTRPCRouter({
   employees: employeesRouter,
   individuals: individualsRouter,
   educationalResources: educationalResourcesRouter,
+  groups: groupsRouter,
 });
 
 // export type definition of API

@@ -40,6 +40,10 @@ paths:
     $ref: paths/Classroom_{id}.yaml
   /Employee/{id}:
     $ref: paths/Employee_{id}.yaml
+  /Groups:
+    $ref: paths/Groups.yaml
+  /Groups/{id}:
+    $ref: paths/Groups_{id}.yaml
 components:
   securitySchemes:
     Basic:

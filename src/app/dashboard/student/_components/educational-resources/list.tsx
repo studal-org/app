@@ -15,11 +15,15 @@ const EducationalResourcesList: FC = () => {
 };
 
 const EducationalResourcesListContent: FC = async () => {
-  const educationalResources = await api.educationalResources.list();
+  const educationalResources =
+    await api.educationalResources.listByStudentGroup();
   return (
     <>
-      {educationalResources.map((item) => (
-        <EducationalResourceUI key={item.id} educationalResourceUI={item} />
+      {educationalResources.map(({ educational_resources }) => (
+        <EducationalResourceUI
+          key={educational_resources.id}
+          educationalResourceUI={educational_resources}
+        />
       ))}
     </>
   );

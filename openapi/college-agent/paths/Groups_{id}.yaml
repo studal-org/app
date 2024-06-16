@@ -1,0 +1,22 @@
+get:
+  summary: Read Group by ID
+  operationId: get-Group-id
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Group.yaml
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/errors/ReferenceNotFound.yaml
