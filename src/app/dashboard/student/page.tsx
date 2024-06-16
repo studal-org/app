@@ -2,8 +2,8 @@ import { getSession } from "@/server/auth/session";
 import { Calendar, TrendingUp } from "lucide-react";
 import { redirect } from "next/navigation";
 import { type FC } from "react";
+import Widget from "../../../components/widget";
 import StudentEducationalResources from "./_components/educational-resources";
-import Widget from "./_components/widget";
 
 const StudentPage: FC = async () => {
   const session = await getSession();

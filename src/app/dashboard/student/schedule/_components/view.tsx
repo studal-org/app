@@ -1,4 +1,5 @@
 import NotFound from "@/components/not-found";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { type components } from "@/server/lib/agents/college/defs";
 import { api } from "@/trpc/react";
@@ -10,7 +11,6 @@ import {
   useMemo,
   type FC,
   type HTMLAttributes,
-  type HTMLProps,
 } from "react";
 import {
   ErrorBoundary,
@@ -32,28 +32,28 @@ const ScheduleView: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         FallbackComponent={ScheduleViewContentError}
         resetKeys={[groupId, scheduleDate]}
       >
-        <Suspense>
-          <ScheduleViewContent
-            scheduleViewContent={{ scheduleParams: { groupId, scheduleDate } }}
-          />
-        </Suspense>
+        <div {...props} className="flex flex-col gap-4">
+          <Suspense fallback={<ScheduleViewContentLoading />}>
+            <ScheduleViewContent
+              scheduleViewContent={{
+                scheduleParams: { groupId, scheduleDate },
+              }}
+            />
+          </Suspense>
+        </div>
       </ErrorBoundary>
     </div>
   );
 };
 
-const ScheduleViewContent: FC<
-  HTMLProps<HTMLDivElement> & {
-    scheduleViewContent: {
-      scheduleParams: { groupId: string; scheduleDate: DateTime };
-    };
-  }
-> = ({
+const ScheduleViewContent: FC<{
+  scheduleViewContent: {
+    scheduleParams: { groupId: string; scheduleDate: DateTime };
+  };
+}> = ({
   scheduleViewContent: {
     scheduleParams: { groupId, scheduleDate },
   },
-  className,
-  ...props
 }) => {
   const [scheduleForDate] =
     api.scheduleForDate.findByScheduleDateForGroupId.useSuspenseQuery(
@@ -103,7 +103,7 @@ const ScheduleViewContent: FC<
   if (!periods.length) return <NotFound />;
 
   return (
-    <div {...props} className={cn("flex flex-col gap-4", className)}>
+    <>
       {periods.map(([periodNumber, { periodSchedule, classes }], i, array) => (
         <Fragment key={periodNumber}>
           <Period
@@ -129,9 +129,45 @@ const ScheduleViewContent: FC<
           )}
         </Fragment>
       ))}
-    </div>
+    </>
   );
 };
+
+const ScheduleViewContentLoading: FC = () => (
+  <>
+    {[...Array(3).keys()].map((key, _, array) => (
+      <Fragment key={key}>
+        <div
+          className={cn(
+            "flex h-full flex-col rounded-lg border bg-card/40 text-card-foreground shadow-sm",
+          )}
+        >
+          <div className="p-6 pb-2">
+            <Skeleton className="inline-block whitespace-pre text-lg font-medium leading-none tracking-tight text-foreground/85">
+              {" ".repeat(40)}
+            </Skeleton>
+          </div>
+          <div className="p-6 pt-0"></div>
+        </div>
+        {key !== array.length - 1 && (
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="text-muted-foreground">
+                Перерыв{" "}
+                <Skeleton className="inline-block whitespace-pre">
+                  {" ".repeat(15)}
+                </Skeleton>
+              </span>
+            </div>
+          </div>
+        )}
+      </Fragment>
+    ))}
+  </>
+);
 
 const ScheduleViewContentError: FC<FallbackProps> = ({ error }) => {
   const { showBoundary } = useErrorBoundary();

@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { type LucideIcon } from "lucide-react";
 import { type Route } from "next";
 import Link from "next/link";
-import { type FC, type ReactNode } from "react";
+import { type FC, type HTMLAttributes, type ReactNode } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 const Widget: FC<{
   title: string;
@@ -35,5 +37,33 @@ const Widget: FC<{
     </div>
   );
 };
+
+export const WidgetLoading: FC<
+  HTMLAttributes<HTMLDivElement> & { widgetLoading: { text?: boolean } }
+> = ({ widgetLoading: { text }, className, ...props }) => (
+  <div className="pt-4">
+    <div
+      className={cn(
+        "h-full rounded-lg border bg-card/40 text-card-foreground shadow-sm",
+        className,
+      )}
+      {...props}
+    >
+      <div className="flex flex-col space-y-1.5 p-6 pb-2">
+        <Skeleton className="whitespace-pre text-sm font-medium leading-none tracking-tight">
+          {" ".repeat(15)}
+        </Skeleton>
+      </div>
+      <div className="p-6 pt-0">
+        <Skeleton className="whitespace-pre text-2xl font-bold">
+          {text && " ".repeat(5)}
+        </Skeleton>
+        <Skeleton className="whitespace-pre text-xs text-muted-foreground">
+          {" ".repeat(20)}
+        </Skeleton>
+      </div>
+    </div>
+  </div>
+);
 
 export default Widget;

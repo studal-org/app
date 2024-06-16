@@ -1,4 +1,4 @@
-import Widget from "@/app/dashboard/student/_components/widget";
+import Widget, { WidgetLoading } from "@/components/widget";
 import { type RouterOutputs } from "@/trpc/shared";
 import { Info } from "lucide-react";
 import { type Route } from "next";
@@ -16,5 +16,7 @@ const EducationalResourceUI: FC<{
     />
   );
 };
+
+export const EducationalResourceUILoading = WidgetLoading;
 
 export default EducationalResourceUI;
