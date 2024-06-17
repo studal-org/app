@@ -5,9 +5,8 @@ import UserMenuOnClient from "./client";
 
 const UserMenu: React.FC = async () => {
   const user = await api.user.readSelf();
-  const student = await api.user.student.read();
 
-  return <UserMenuOnClient user={user} student={student} />;
+  return <UserMenuOnClient user={user} />;
 };
 
 export const UserMenuLoading: React.FC = () => (

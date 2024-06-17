@@ -17,7 +17,6 @@ import useGroups from "./groups";
 
 const UserMenuOnClient: React.FC<{
   user: RouterOutputs["user"]["readSelf"];
-  student: RouterOutputs["user"]["student"]["read"];
 }> = ({ user }) => {
   const { groups, components } = useGroups();
 
