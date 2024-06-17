@@ -2,7 +2,7 @@ import { collegeAgent } from "@/server/lib/agents/college";
 import { TRPCError } from "@trpc/server";
 import { type FetchResponse } from "openapi-fetch";
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 
 export const groupsRouter = createTRPCRouter({
   list: protectedProcedure.query(async () => {
