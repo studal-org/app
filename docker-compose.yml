@@ -3,8 +3,18 @@ services:
     image: ghcr.io/studal-org/app:latest
     restart: always
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
+      APP_PROTOCOL: $APP_PROTOCOL
+      APP_DOMAIN: $APP_DOMAIN
+      APP_HOST: $APP_HOST
+      APP_URL: $APP_URL
+      APP_TZ: $APP_TZ
+      APP_INTERNAL_KEY: $APP_INTERNAL_KEY
+      SESSION_SECRET: $SESSION_SECRET
+      SESSION_TTL: $SESSION_TTL
+      AUTH_SSO_VKID_ID: $AUTH_SSO_VKID_ID
+      AUTH_SSO_VKID_SECRET: $AUTH_SSO_VKID_SECRET
       DATABASE_URL: "postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_DB}"
       AGENT_COLLEGE_URL: $AGENT_COLLEGE_URL
       AGENT_COLLEGE_USERNAME: $AGENT_COLLEGE_USERNAME
@@ -14,11 +24,6 @@ services:
       SMTP_USERNAME: $SMTP_USERNAME
       SMTP_PASSWORD: $SMTP_PASSWORD
       SMTP_FROM: $SMTP_FROM
-      SESSION_SECRET: $SESSION_SECRET
-      SESSION_TTL: $SESSION_TTL
-      APP_INTERNAL_KEY: $APP_INTERNAL_KEY
-      APP_URL: $APP_URL
-      APP_TZ: $APP_TZ
   postgres:
     image: postgres
     restart: on-failure
